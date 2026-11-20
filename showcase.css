@@ -182,6 +182,16 @@
   box-shadow: 0 10px 24px #030a0c70;
 }
 
+.fielddesk-screenshot {
+  background:
+    radial-gradient(ellipse at 50% 40%, #283d66c7, transparent 75%),
+    #111c2d;
+}
+
+.fielddesk-screenshot img {
+  border-color: #485b7d;
+}
+
 .showcase-actions {
   display: flex;
   align-items: center;

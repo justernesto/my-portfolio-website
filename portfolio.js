@@ -105,6 +105,20 @@
         ['Current state', 'The source toolkit and documentation exist. Captured device results, hardware validation, and a protocol reverse-engineering result are not claimed. Device identifiers and raw captures are excluded from this public portfolio.']
       ], links: []
     },
+    fielddesk: {
+      title: 'Fielddesk', status: 'Live IT support chatbot · Web search and citations',
+      intro: 'I built Fielddesk for everyday IT questions that start with a symptom. It gives the user a short troubleshooting plan and can look up documentation when an answer depends on a product, version, or current behavior.',
+      tags: ['Node.js', 'JavaScript', 'Groq', 'Browser search', 'Vercel'],
+      sections: [
+        ['Try a support scenario', ['Pick one of six starters for devices, connectivity, apps, printing, accounts, or VPN. For example, try the Devices starter for a wireless keyboard that stopped working while its mouse still responds.', 'Follow up with the device model or the result of a check. Fielddesk uses recent conversation context to suggest what to try next.']],
+        ['How sources work', 'Routine questions get a direct answer. When a question needs verification, Fielddesk can use Groq browser search and prefers official vendor documentation. The server checks cited URLs against retrieved results, and “View sources” opens the matching references.'],
+        ['What I built', 'The JavaScript workspace offers conversation history, pinning, and archiving in the browser. A Node.js API bounds the context sent to Groq and keeps the provider key on the server. Vercel hosts the app and limits requests to the public chat endpoint.'],
+        ['How it complements Ops Copilot', 'Fielddesk answers open-ended support questions and can consult web documentation. Ops Copilot matches symptoms to a curated set of runbooks for repeatable triage and handoffs.']
+      ], links: [
+        { label: 'Try Fielddesk live', href: 'https://fielddesk-silk.vercel.app/' },
+        { label: 'Compare with Ops Copilot', href: 'https://ai-agents-omega-nine.vercel.app/', secondary: true }
+      ]
+    },
     ai: {
       title: 'Ops Copilot', status: 'Live demo · 67 runbooks across 11 IT support topics',
       intro: 'I built Ops Copilot for the first few minutes of a support ticket. It helps technicians narrow the symptom, choose the next check, verify recovery, and record what the next team needs to know.',
@@ -203,7 +217,7 @@
     networks: { context: 'PRODUCTION EXPERIENCE + CONTINUED STUDY', title: 'Follow the connection.\nFind the cause.', description: 'From a physical switch port to a default gateway, I work through connectivity problems methodically and coordinate fixes with the right team.', tags: ['TCP/IP', 'VLANs', 'DNS / DHCP', 'VPN', 'UniFi', 'LAN / WAN'], evidence: 'Explore the network lab', href: '#network-lab' },
     systems: { context: 'ENTERPRISE SUPPORT + HOME LAB', title: 'Help people get access.\nKeep the environment usable.', description: 'Windows and macOS support, Microsoft 365 accounts, identity troubleshooting, and hands-on domain administration practice in a VMware lab.', tags: ['Active Directory', 'MFA', 'Microsoft 365', 'Windows / macOS', 'Group Policy', 'VMware'], evidence: 'Explore the Windows lab', project: 'windows' },
     security: { context: 'CYBERSECURITY CERTIFICATES + LAB PRACTICE', title: 'Look for context.\nDocument what the evidence says.', description: 'I combine disciplined support triage with security coursework and home-lab process telemetry, using logs to understand what happened on a host.', tags: ['Sysmon Event ID 1', 'Event Viewer', 'PowerShell', 'NTFS permissions', 'Triage & escalation'], evidence: 'Explore security monitoring practice', project: 'windows' },
-    ai: { context: 'LIVE PROJECT', title: 'Make AI useful\nin everyday IT operations.', description: 'Ops Copilot matches support symptoms to a searchable library of 67 runbooks. Gemini can prioritize the suggested checks, and every matched reply cites the guide so technicians can review the steps and prepare a handoff.', tags: ['Next.js', 'Python', 'FastAPI', 'Gemini', 'Docker Compose', 'Runbook search'], evidence: 'Explore the Ops Copilot case study', project: 'ai' }
+    ai: { context: 'LIVE PROJECTS', title: 'Make AI useful\nin everyday IT operations.', description: 'Fielddesk answers everyday support questions and can look up vendor documentation. Ops Copilot matches symptoms to 67 runbooks with verification and handoff guidance.', tags: ['Node.js', 'Groq', 'Browser search', 'Next.js', 'FastAPI', 'Gemini'], evidence: 'Explore the Ops Copilot case study', project: 'ai' }
   };
   let activeToolkit = 'networks';
   const toolkitTabs = $$('[data-toolkit]');

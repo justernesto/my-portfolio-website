@@ -5,6 +5,7 @@ A dependency-free static portfolio for GitHub Pages. Open `index.html`, or previ
 ## Content
 
 - Current systems administration and remote field services work at Carvana, plus Quick Quack Car Wash, MGA Entertainment, and Partners Personnel experience.
+- Fielddesk, a live IT support chatbot with step-by-step checks, Groq browser search, clickable source citations, and follow-up context. [Live demo](https://fielddesk-silk.vercel.app/)
 - Ops Copilot, a live IT support assistant with 67 searchable runbooks across 11 topics, source citations, verification and handoff guidance, and optional Gemini prioritization. It runs on Vercel and supports local Docker Compose deployment. [Live demo](https://ai-agents-omega-nine.vercel.app/) · [GitHub source](https://github.com/justernesto/ai-agents) · [Runbook expansion](https://github.com/justernesto/ai-agents/pull/4)
 - Windows domain/security home lab, BLE tooling, and a CCNA study/lab roadmap.
 - A printable résumé at `resume.html`, verified email, and LinkedIn at https://www.linkedin.com/in/nescardenas.
