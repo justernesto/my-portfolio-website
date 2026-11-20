@@ -1,501 +1,163 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en" data-motion="on">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ernesto Cardenas - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /* Custom Styles (minimal, primarily for things Tailwind doesn't cover easily or for overrides) */
-        :root {
-            --primary-bg-custom: #0a0a0a; /* For elements not easily targeted by Tailwind initially */
-            --accent-color-custom: #00ff88;
-            --gradient-custom: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--primary-bg-custom); /* Tailwind bg-black or bg-gray-900 can be used directly */
-            color: #ffffff; /* Tailwind text-white */
-            overflow-x: hidden;
-        }
-
-        /* Gradient text utility */
-        .text-gradient {
-            background: var(--gradient-custom);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-        }
-
-        /* Hero background animation */
-        .hero-bg-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 70%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(0, 204, 255, 0.1) 0%, transparent 50%);
-            animation: float 6s ease-in-out infinite;
-            z-index: 0; /* Ensure it's behind content */
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
-        }
-
-        /* Custom scrollbar (optional, Tailwind doesn't directly style scrollbars) */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a; /* Tailwind bg-black */
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-color-custom); /* Tailwind bg-green-400 or similar */
-            border-radius: 4px; /* Tailwind rounded-md */
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00cc66; /* Darker shade for hover */
-        }
-
-        /* Initial state for scroll animations */
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .scroll-animate-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Navbar link hover effect */
-        .nav-link-hover::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color-custom);
-            transition: width 0.3s ease;
-        }
-        .nav-link-hover:hover::after {
-            width: 100%;
-        }
-
-        /* Ensure hero content is above the animation */
-        .hero-content-container {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
-    <script>
-        // Tailwind dark mode (optional, if you want to add a toggle later)
-        // if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        //   document.documentElement.classList.add('dark')
-        // } else {
-        //   document.documentElement.classList.remove('dark')
-        // }
-        // function toggleTheme() {
-        //   if (localStorage.getItem('theme') === 'dark') {
-        //     localStorage.setItem('theme', 'light');
-        //     document.documentElement.classList.remove('dark');
-        //   } else {
-        //     localStorage.setItem('theme', 'dark');
-        //     document.documentElement.classList.add('dark');
-        //   }
-        // }
-    </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d12">
+  <meta name="description" content="Ernesto Cardenas — Systems Administrator at Carvana. IT infrastructure, network troubleshooting, hands-on security labs, and a passion for AI integration with IT operations.">
+  <meta property="og:title" content="Ernesto Cardenas | IT Infrastructure & AI Integration">
+  <meta property="og:description" content="Explore my work in systems administration, network support, cybersecurity labs, and AI-assisted IT operations.">
+  <meta property="og:type" content="website">
+  <title>Ernesto Cardenas | Systems, Networks & AI</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="network.css">
+  <script src="portfolio.js" defer></script>
+  <script src="network.js" defer></script>
 </head>
-<body class="bg-black text-white">
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Ernesto Cardenas, home"><span class="brand-mark" aria-hidden="true">ec<span>.</span></span><span class="brand-name">Ernesto Cardenas</span></a>
+      <button class="menu-toggle icon-button" type="button" aria-expanded="false" aria-controls="navigation" aria-label="Open navigation"><span></span><span></span></button>
+      <nav id="navigation" aria-label="Main navigation">
+        <a href="#work">Work & labs</a><a href="#experience">Experience</a><a href="#toolkit">Toolkit</a><a href="#about">About</a>
+        <a href="#contact" class="nav-contact">Let’s connect</a>
+      </nav>
+      <button id="motion-toggle" class="icon-button motion-toggle" type="button" aria-pressed="false" aria-label="Pause animation" title="Pause animation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg></button>
+    </div>
+  </header>
+  <main id="main">
+    <section id="home" class="hero container">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-line" aria-hidden="true"></span> IT INFRASTRUCTURE × AI INTEGRATION</p>
+        <h1>Reliable systems.<br><span class="accent">Human impact.</span></h1>
+        <p class="hero-intro">I’m <strong>Ernesto Cardenas</strong>, a Systems Administrator connecting people, infrastructure, and better ways of working.</p>
+        <p class="hero-detail">From hands-on network troubleshooting to exploring AI-powered IT operations, I’m driven by one thing: making technology work better for people.</p>
+        <div class="hero-actions"><a class="button primary" href="#work">Explore my work</a><a class="button secondary" href="resume.html" target="_blank" rel="noopener">View résumé <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2"/><path d="M8 7h4M8 10h4M8 13h3"/></svg></a></div>
+        <div class="hero-meta"><span>Currently at <strong>Carvana</strong></span><span>San Bernardino, CA</span></div>
+      </div>
+      <div class="hero-visual" id="network-mount"><figure class="network-demo" aria-labelledby="network-demo-title">
+  <div class="network-demo__header">
+    <span class="network-demo__eyebrow" id="network-demo-title">Interactive demo</span>
+    <span class="network-demo__tag">Illustrative topology</span>
+  </div>
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 bg-black/90 backdrop-blur-md transition-all duration-300">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-gradient">Ernesto Cardenas</a>
-            <ul class="hidden md:flex space-x-8">
-                <li><a href="#home" class="text-white hover:text-green-400 transition-colors duration-300 nav-link-hover relative">Home</a></li>
-                <li><a href="#about" class="text-white hover:text-green-400 transition-colors duration-300 nav-link-hover relative">About</a></li>
-                <li><a href="#skills" class="text-white hover:text-green-400 transition-colors duration-300 nav-link-hover relative">Skills</a></li>
-                <li><a href="#projects" class="text-white hover:text-green-400 transition-colors duration-300 nav-link-hover relative">Projects</a></li>
-                <li><a href="#contact" class="text-white hover:text-green-400 transition-colors duration-300 nav-link-hover relative">Contact</a></li>
-            </ul>
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-md">
-            <ul class="flex flex-col items-center space-y-4 py-4">
-                <li><a href="#home" class="text-white hover:text-green-400 transition-colors duration-300 mobile-nav-link">Home</a></li>
-                <li><a href="#about" class="text-white hover:text-green-400 transition-colors duration-300 mobile-nav-link">About</a></li>
-                <li><a href="#skills" class="text-white hover:text-green-400 transition-colors duration-300 mobile-nav-link">Skills</a></li>
-                <li><a href="#projects" class="text-white hover:text-green-400 transition-colors duration-300 mobile-nav-link">Projects</a></li>
-                <li><a href="#contact" class="text-white hover:text-green-400 transition-colors duration-300 mobile-nav-link">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+  <div class="network-demo__map" aria-label="Select a network device to explore its role">
+    <svg class="network-demo__links" viewBox="0 0 520 320" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="portfolio-network-link" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#a6f4c5" />
+          <stop offset="1" stop-color="#7dd6ed" />
+        </linearGradient>
+      </defs>
+      <path class="network-demo__link" data-network-route="gateway" d="M260 58 V157" />
+      <path class="network-demo__link" data-network-route="workstation" d="M260 157 V206 H73 V259" />
+      <path class="network-demo__link" data-network-route="directory" d="M260 157 V259" />
+      <path class="network-demo__link" data-network-route="wireless" d="M260 157 V206 H447 V259" />
+      <path class="network-demo__packet" pathLength="100" d="M260 58 V157" />
+      <path class="network-demo__packet network-demo__packet--second" pathLength="100" d="M260 157 V206 H73 V259" />
+      <path class="network-demo__packet network-demo__packet--third" pathLength="100" d="M260 157 V206 H447 V259" />
+      <circle class="network-demo__junction" cx="260" cy="206" r="3" />
+    </svg>
 
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-0">
-        <div class="hero-bg-animation"></div>
-        <div class="hero-content-container container mx-auto px-6 text-center">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 text-gradient animate-slideUp">
-                IT Operations Analyst
-            </h1>
-            <h2 class="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-6 animate-slideUp" style="animation-delay: 0.2s;">
-                Analyzing Systems, Optimizing Processes & Driving AI-Enhanced Operations
-            </h2>
-            <p class="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-10 animate-slideUp" style="animation-delay: 0.4s;">
-                I leverage data-driven insights to enhance IT operations and system efficiency, while pioneering AI-powered automation. 
-                From process analysis to implementing intelligent solutions, I connect strategic operational improvements with technological innovation.
-            </p>
-            <a href="#projects" class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-black font-semibold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl animate-slideUp" style="animation-delay: 0.6s;">
-                View My Work
-            </a>
-        </div>
+    <button class="network-demo__node network-demo__node--gateway" type="button" data-network-node="gateway" aria-pressed="false" aria-controls="network-demo-detail">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z" /></svg>
+      <span>Gateway</span>
+    </button>
+    <button class="network-demo__node network-demo__node--core" type="button" data-network-node="core" aria-pressed="true" aria-controls="network-demo-detail">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2" /><path d="M6 10h2m2 0h2m2 0h2m2 0h1M6 14h2m2 0h2m2 0h2m2 0h1" /></svg>
+      <span>Core switch</span>
+    </button>
+    <button class="network-demo__node network-demo__node--workstation" type="button" data-network-node="workstation" aria-label="Workstation" aria-pressed="false" aria-controls="network-demo-detail">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M12 16v4m-5 0h10" /></svg>
+      <span>Desktop</span>
+    </button>
+    <button class="network-demo__node network-demo__node--directory" type="button" data-network-node="directory" aria-label="Directory server" aria-pressed="false" aria-controls="network-demo-detail">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M5 9h14M5 15h14M8 6h1m-1 6h1m-1 6h1" /></svg>
+      <span>Directory</span>
+    </button>
+    <button class="network-demo__node network-demo__node--wireless" type="button" data-network-node="wireless" aria-label="Wireless access point" aria-pressed="false" aria-controls="network-demo-detail">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 8a14 14 0 0 1 18 0M6 12a9 9 0 0 1 12 0M9 16a4.5 4.5 0 0 1 6 0" /><circle cx="12" cy="20" r="1" /></svg>
+      <span>Wi-Fi AP</span>
+    </button>
+  </div>
+
+  <figcaption class="network-demo__caption">
+    <p class="network-demo__detail" id="network-demo-detail" aria-live="polite" aria-atomic="true"><strong>Core switch.</strong> Connects local devices and carries traffic between them.</p>
+    <div class="network-demo__footer">
+      <button class="network-demo__trace" type="button" data-network-trace>Run a trace</button>
+      <span class="network-demo__hint">Select any device</span>
+    </div>
+    <p class="network-demo__status" data-network-status role="status" aria-live="polite" aria-atomic="true"></p>
+  </figcaption>
+</figure>
+</div>
+      <div class="hero-bottom"><span class="mono">A practical mindset. An experimental spirit.</span><a href="#work">Scroll to explore <span class="scroll-cue" aria-hidden="true"></span></a></div>
     </section>
 
-    <section id="about" class="py-16 md:py-24 bg-gray-900">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 text-gradient">About Me</h2>
-            <div class="grid md:grid-cols-5 gap-10 md:gap-16 items-center">
-                <div class="md:col-span-3 text-gray-300 text-lg leading-relaxed scroll-animate">
-                    <p class="mb-6">
-                        Hi! I'm Ernesto, an IT Operations Analyst passionate about optimizing technical processes and exploring the frontier of AI automation. 
-                        I combine strong analytical skills with IT fundamentals—like system analysis, network performance monitoring, and process improvement—alongside modern programming skills in Python and AI development.
-                    </p>
-                    <p>
-                        Beyond daily operational analysis, I'm actively developing AI-powered tools and automation strategies. 
-                        My recent work includes developing an AI Agent Generator using Python, LangChain, and Docker, aimed at streamlining operational workflows. 
-                        I believe the future of IT excellence lies in intelligent automation and data-driven decision-making, and I'm excited to drive that evolution.
-                    </p>
-                </div>
-                <div class="md:col-span-2 flex justify-center scroll-animate" style="animation-delay: 0.2s;">
-                    <div class="bg-gray-800 p-6 md:p-8 rounded-xl shadow-2xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 w-full max-w-md">
-                        <div class="text-center">
-                            <i class="fas fa-user-tie text-6xl md:text-7xl text-green-400 mb-4"></i> <h3 class="text-xl md:text-2xl font-semibold text-white mb-2">IT Operations Analyst & Automation Strategist</h3>
-                            <p class="text-gray-400 text-sm md:text-base">
-                                Analyzing IT operations and implementing AI-driven strategic solutions
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="proof-strip" aria-label="Career highlights"><div class="container proof-grid">
+      <div><span class="proof-label">CURRENT FOCUS</span><p>Systems administration<br><strong>& remote field services</strong></p></div>
+      <div><span class="proof-label">ENTERPRISE EXPERIENCE</span><p><strong>2,500+ users supported</strong><br>Windows & macOS at MGA</p></div>
+      <div><span class="proof-label">CONTINUOUS LEARNING</span><p><strong>Google + Microsoft</strong><br>Cybersecurity certificates</p></div>
+      <div><span class="proof-label">WHAT’S NEXT</span><p><strong>AI-assisted operations</strong><br>CCNA studies in progress</p></div>
+    </div></section>
+
+    <section id="work" class="section container">
+      <div class="section-heading reveal"><div><p class="eyebrow">BUILD. BREAK. UNDERSTAND.</p><h2>Curiosity, put to work<span class="accent">.</span></h2></div><p>Hands-on labs and working prototypes.<br>Select a project to explore the thinking behind it.</p></div>
+      <div class="work-controls">
+        <div class="filters" role="group" aria-label="Filter projects"><button type="button" class="filter active" data-filter="all" aria-pressed="true">All work <span>4</span></button><button type="button" class="filter" data-filter="systems" aria-pressed="false">Systems & security</button><button type="button" class="filter" data-filter="networking" aria-pressed="false">Networking</button><button type="button" class="filter" data-filter="ai" aria-pressed="false">AI & automation</button></div>
+        <label class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><span class="sr-only">Search projects or technologies</span><input id="project-search" type="search" placeholder="Find a skill or project" autocomplete="off"><kbd aria-hidden="true">/</kbd></label>
+      </div>
+      <p id="project-count" class="sr-only" role="status" aria-live="polite">Showing 4 projects</p>
+      <div class="project-grid">
+        <article class="project-card reveal" data-project="windows" data-category="systems networking" data-search="windows server vmware active directory gpo group policy powershell sysmon event viewer dns dhcp identity security monitoring ntfs">
+          <div class="project-art art-windows" aria-hidden="true"><div class="window-art"><div class="window-top"><span></span><span></span><span></span><b>identity & telemetry</b></div><div class="directory-root"><span class="mini-icon">AD</span><div>LAB.DOMAIN<small>Windows Server 2022</small></div></div><div class="directory-branches"><span>Users & groups</span><span>Group Policy</span><span>Event ID 1</span></div><div class="terminal-line"><span>PS</span> Get-WinEvent <i class="terminal-caret"></i></div></div><span class="art-corner">SYSTEMS / SECURITY</span></div>
+          <div class="project-content"><div class="project-meta"><span>Hands-on home lab</span><span class="project-date">Windows + identity</span></div><h3>Inside a Windows domain</h3><p>Building the environment, managing access, and learning what endpoint activity leaves behind.</p><div class="tags"><span>Active Directory</span><span>Sysmon</span><span>PowerShell</span></div><button class="project-open text-button" type="button" data-open="windows" aria-haspopup="dialog">Explore the lab <span aria-hidden="true">+</span></button></div>
+        </article>
+        <article class="project-card reveal" data-project="ble" data-category="systems networking" data-search="bluetooth ble bleak python asyncio corebluetooth gatt inventory att tshark wireshark protocol security macos">
+          <div class="project-art art-ble" aria-hidden="true"><div class="signal-orbit orbit-one"></div><div class="signal-orbit orbit-two"></div><div class="signal-orbit orbit-three"></div><svg class="bluetooth-glyph" viewBox="0 0 60 90" fill="none" stroke="currentColor" stroke-width="3"><path d="M29 5v80l24-22L8 25M29 5l24 22L8 65"/></svg><span class="signal-tag signal-tag-one">ADVERTISEMENT</span><span class="signal-tag signal-tag-two">GATT METADATA</span><span class="art-corner">WIRELESS / PYTHON</span></div>
+          <div class="project-content"><div class="project-meta"><span>Toolkit built</span><span class="project-date">October 2026</span></div><h3>Making Bluetooth observable</h3><p>A Python toolkit for BLE discovery, GATT inventory, and offline ATT protocol analysis.</p><div class="tags"><span>Python</span><span>Bleak</span><span>tshark</span></div><button class="project-open text-button" type="button" data-open="ble" aria-haspopup="dialog">Explore the toolkit <span aria-hidden="true">+</span></button></div>
+        </article>
+        <article class="project-card reveal" data-project="ai" data-category="ai" data-search="ai artificial intelligence integration it operations automation python gemini google langchain fastapi docker wikipedia chatbot conversational memory api">
+          <div class="project-art art-ai" aria-hidden="true"><div class="agent-flow"><span class="flow-node flow-user">prompt</span><span class="flow-line"></span><div class="agent-core"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M30 7c0 15-8 23-23 23 15 0 23 8 23 23 0-15 8-23 23-23-15 0-23-8-23-23Z"/></svg></div><span class="flow-line"></span><span class="flow-node">context</span></div><div class="agent-tools"><span>GEMINI</span><span>MEMORY</span><span>WIKIPEDIA</span></div><span class="art-corner">AI / OPERATIONS EXPLORATION</span></div>
+          <div class="project-content"><div class="project-meta"><span>Working prototype</span><span class="project-date">Public source</span></div><h3>An AI foundation for better ops</h3><p>Exploring conversational agents, tool use, and APIs as building blocks for AI-assisted IT workflows.</p><div class="tags"><span>Gemini</span><span>LangChain</span><span>FastAPI</span><span>Docker</span></div><button class="project-open text-button" type="button" data-open="ai" aria-haspopup="dialog">Explore the prototype <span aria-hidden="true">+</span></button></div>
+        </article>
+        <article class="project-card reveal" data-project="ccna" data-category="networking" data-search="cisco ccna packet tracer networking roadmap switching routing vlan trunks vlsm subnetting ospf ipv6 nat acl dhcp stp lacp ios">
+          <div class="project-art art-network" aria-hidden="true"><svg viewBox="0 0 540 240" fill="none"><g stroke="currentColor" stroke-opacity=".35"><path d="M85 120h130m110 0h130M270 55v130M215 120l55-65 55 65-55 65-55-65Z"/><path d="M85 90v60m370-60v60M240 55h60m-60 130h60" stroke-dasharray="4 6"/></g><g fill="#0d1c26" stroke="currentColor"><rect x="45" y="100" width="80" height="40" rx="8"/><rect x="235" y="100" width="70" height="40" rx="8"/><rect x="415" y="100" width="80" height="40" rx="8"/><circle cx="270" cy="55" r="15"/><circle cx="270" cy="185" r="15"/></g><g fill="currentColor" font-family="monospace" font-size="11" text-anchor="middle"><text x="85" y="124">VLAN 10</text><text x="270" y="124">ROUTER</text><text x="455" y="124">VLAN 20</text></g></svg><span class="network-badge">LEARNING IN PROGRESS</span><span class="art-corner">SWITCHING / ROUTING</span></div>
+          <div class="project-content"><div class="project-meta"><span>Study roadmap · in progress</span><span class="project-date">November 2026</span></div><h3>Building stronger network instincts</h3><p>A structured CCNA lab roadmap connecting switching, routing, services, and troubleshooting.</p><div class="tags"><span>Cisco IOS</span><span>Packet Tracer</span><span>VLANs / OSPF</span></div><button class="project-open text-button" type="button" data-open="ccna" aria-haspopup="dialog">Explore the roadmap <span aria-hidden="true">+</span></button></div>
+        </article>
+      </div>
+      <div id="no-results" class="empty-state" hidden><h3>No matching projects yet.</h3><p>Try “Python,” “networking,” or “Active Directory.”</p><button id="clear-search" class="button secondary" type="button">Show all work</button></div>
+      <noscript><p class="note">Project summaries are available above. Enable JavaScript for filters, case studies, and the interactive network demo.</p></noscript>
     </section>
 
-    <section id="skills" class="py-16 md:py-24 bg-black">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 text-gradient">Skills & Expertise</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-700/50 transform transition-all duration-300 hover:scale-105 hover:border-green-400 scroll-animate">
-                    <div class="text-green-400 text-4xl mb-4"><i class="fas fa-sitemap"></i></div> <h3 class="text-xl font-semibold text-white mb-3">System & Process Analysis</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Expert in analyzing IT systems and operational workflows to identify inefficiencies and areas for improvement, ensuring optimal performance and reliability.
-                    </p>
-                </div>
-                <div class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-700/50 transform transition-all duration-300 hover:scale-105 hover:border-green-400 scroll-animate" style="animation-delay: 0.1s;">
-                    <div class="text-green-400 text-4xl mb-4"><i class="fas fa-network-wired"></i></div>
-                    <h3 class="text-xl font-semibold text-white mb-3">Network & Infrastructure Management</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Overseeing and optimizing network infrastructure. Configuration, performance monitoring, and ensuring secure, reliable connectivity for all operations.
-                    </p>
-                </div>
-                <div class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-700/50 transform transition-all duration-300 hover:scale-105 hover:border-green-400 scroll-animate" style="animation-delay: 0.2s;">
-                    <div class="text-green-400 text-4xl mb-4"><i class="fas fa-shield-alt"></i></div>
-                    <h3 class="text-xl font-semibold text-white mb-3">IT Security & Compliance</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Implementing cybersecurity best practices, risk assessment, and ensuring compliance with industry standards. Protecting data and systems from threats.
-                    </p>
-                </div>
-                <div class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-700/50 transform transition-all duration-300 hover:scale-105 hover:border-green-400 scroll-animate" style="animation-delay: 0.3s;">
-                    <div class="text-green-400 text-4xl mb-4"><i class="fas fa-chart-line"></i></div> <h3 class="text-xl font-semibold text-white mb-3">Data Analysis & Reporting</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Utilizing data to monitor IT performance, generate reports, and provide insights for strategic decision-making and continuous operational improvement.
-                    </p>
-                </div>
-            </div>
-        </div>
+    <section id="experience" class="section section-tinted"><div class="container experience-layout">
+      <div class="section-heading reveal"><div><p class="eyebrow">FROM THE SERVICE DESK TO THE SITE</p><h2>Built in the<br>real world<span class="accent">.</span></h2></div><p>Keeping people connected takes technical care, clear communication, and a willingness to get hands-on.</p><a class="text-link" href="resume.html" target="_blank" rel="noopener">Read the full résumé</a></div>
+      <div class="timeline">
+        <details class="experience-item reveal" open><summary><span class="timeline-marker" aria-hidden="true"></span><span class="experience-summary"><span class="experience-date">OCT 2026 — PRESENT <span class="current-label">Current</span></span><strong>Carvana</strong><span>Systems Administrator, Remote Field Services</span></span><span class="details-symbol" aria-hidden="true">+</span></summary><div class="experience-body"><p>Remote and onsite IT support for the West region, including Southern California.</p><ul><li>Resolve hardware and connectivity tickets, with onsite support when needed.</li><li>Diagnose switch ports, VLAN assignments, gateway reachability, and routing issues with the network team.</li><li>Stage IT equipment for new site deployments.</li></ul><div class="tags"><span>Field services</span><span>Network diagnostics</span><span>Deployments</span></div></div></details>
+        <details class="experience-item reveal"><summary><span class="timeline-marker" aria-hidden="true"></span><span class="experience-summary"><span class="experience-date">MAY 2025 — SEP 2026</span><strong>Quick Quack Car Wash</strong><span>IT Field Technician · Infrastructure & Network Support</span></span><span class="details-symbol" aria-hidden="true">+</span></summary><div class="experience-body"><p>Multi-site infrastructure support where network reliability directly supports day-to-day operations.</p><ul><li>Troubleshot endpoint, POS, VLAN, WAN, and wireless issues.</li><li>Installed and maintained UniFi switches, gateways, PoE access points, IP cameras, and cabling.</li><li>Used NinjaOne to support Qtroller software hosting Docker containers for the license plate recognition server.</li><li>Created Confluence support documentation and coordinated onsite fixes with remote teams.</li></ul></div></details>
+        <details class="experience-item reveal"><summary><span class="timeline-marker" aria-hidden="true"></span><span class="experience-summary"><span class="experience-date">DEC 2023 — APR 2025</span><strong>MGA Entertainment</strong><span>Network Support Engineer · Enterprise Help Desk</span></span><span class="details-symbol" aria-hidden="true">+</span></summary><div class="experience-body"><p>Tier 1/2 support for an environment serving 2,500+ Windows and macOS users.</p><ul><li>Resolved workstation, application, identity, and network access issues.</li><li>Supported Microsoft 365 accounts and troubleshot Active Directory, MFA, VPN, DNS, and DHCP.</li><li>Documented investigations, escalations, and support handoffs in Freshservice.</li></ul></div></details>
+        <details class="experience-item reveal"><summary><span class="timeline-marker" aria-hidden="true"></span><span class="experience-summary"><span class="experience-date">JUN 2023 — DEC 2023</span><strong>Partners Personnel</strong><span>Warehouse IT Support</span></span><span class="details-symbol" aria-hidden="true">+</span></summary><div class="experience-body"><p>Onsite support for 100+ warehouse users, workstations, Zebra printers, RF scanners, and connectivity, with deployment and escalation coordination.</p></div></details>
+      </div>
+    </div></section>
+
+    <section id="toolkit" class="section container">
+      <div class="section-heading reveal"><div><p class="eyebrow">TOOLS WITH A PURPOSE</p><h2>The way I work<span class="accent">.</span></h2></div><p>Select a discipline to see the tools,<br>the context, and the supporting work.</p></div>
+      <div class="toolkit-layout reveal"><div class="toolkit-tabs" role="tablist" aria-label="Technical disciplines"><button id="tab-networks" role="tab" aria-selected="true" aria-controls="toolkit-panel" data-toolkit="networks">Networks & infrastructure <span aria-hidden="true">+</span></button><button id="tab-systems" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="systems">Systems & identity <span aria-hidden="true">+</span></button><button id="tab-security" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="security">Security & investigation <span aria-hidden="true">+</span></button><button id="tab-ai" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="ai">AI & automation <span aria-hidden="true">+</span></button></div><div id="toolkit-panel" class="toolkit-panel" role="tabpanel" aria-labelledby="tab-networks" tabindex="0"><p class="eyebrow" id="toolkit-context">PRODUCTION EXPERIENCE + CONTINUED STUDY</p><h3 id="toolkit-title">Follow the connection.<br>Find the cause.</h3><p id="toolkit-description">From a physical switch port to a default gateway, I work through connectivity problems methodically and coordinate fixes with the right team.</p><div class="tags large-tags" id="toolkit-tags"><span>TCP/IP</span><span>VLANs</span><span>DNS / DHCP</span><span>VPN</span><span>UniFi</span><span>LAN / WAN</span></div><a id="toolkit-evidence" class="text-link" href="#experience">See infrastructure experience</a></div></div>
     </section>
 
-    <section id="projects" class="py-16 md:py-24 bg-gray-900">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 text-gradient">Featured Projects</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700 transform transition-transform duration-300 hover:scale-105 scroll-animate">
-                    <img src="https://placehold.co/600x400/0D1117/00FF88?text=AI+Agent+Gen" alt="AI Agent Generator Project Image" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0D1117/FFFFFF?text=Image+Not+Found';">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-3">AI Agent Generator for Operations</h3>
-                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
-                            A Python-powered tool leveraging LangChain and Docker to scaffold custom AI agents, automating prompt engineering and deployment for streamlined IT operational tasks.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-medium">Python</span>
-                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-medium">LangChain</span>
-                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-medium">Docker</span>
-                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-medium">FastAPI</span>
-                        </div>
-                        <a href="https://github.com/justernesto/ai-agents" target="_blank" class="inline-block bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-black text-sm font-semibold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105">
-                            View on GitHub <i class="fab fa-github ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700 transform transition-transform duration-300 hover:scale-105 scroll-animate" style="animation-delay: 0.15s;">
-                    <img src="https://placehold.co/600x400/0D1117/00CCFF?text=Ops+Dashboard" alt="Operations Analytics Dashboard Project Image" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0D1117/FFFFFF?text=Image+Not+Found';">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-3">Operational Analytics Dashboard</h3>
-                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
-                            Interactive data visualization dashboard for monitoring key IT operational metrics, with real-time updates, custom reporting, and performance insights.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium">Vue.js</span>
-                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium">D3.js</span>
-                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium">Python</span>
-                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium">PostgreSQL</span>
-                        </div>
-                        <a href="#" target="_blank" class="inline-block bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105">
-                            View Project (Soon)
-                        </a>
-                    </div>
-                </div>
-                <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700 transform transition-transform duration-300 hover:scale-105 scroll-animate" style="animation-delay: 0.3s;">
-                     <img src="https://placehold.co/600x400/0D1117/FF69B4?text=Process+Auto" alt="Process Automation Initiative Project Image" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0D1117/FFFFFF?text=Image+Not+Found';">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-3">Process Automation Initiative</h3>
-                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
-                            Led an initiative to identify and automate repetitive IT operational tasks using scripting and RPA tools, resulting in improved efficiency and reduced manual error.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-xs font-medium">Python Scripting</span>
-                            <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-xs font-medium">RPA Tools</span>
-                            <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-xs font-medium">Workflow Design</span>
-                            <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-xs font-medium">PowerShell</span>
-                        </div>
-                         <a href="#" target="_blank" class="inline-block bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105">
-                            Details Coming Soon
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="about" class="section section-tinted"><div class="container about-layout">
+      <div class="about-copy reveal"><p class="eyebrow">A LITTLE MORE HUMAN</p><h2>Always troubleshooting.<br><span class="accent">Always learning.</span></h2><p>I enjoy the moment a complicated problem starts to make sense. That curiosity has taken me from warehouse devices and enterprise support to field infrastructure, Windows security labs, and Bluetooth tooling.</p><p>I’m especially passionate about <strong>integrating AI with IT operations</strong>: helping teams find knowledge faster, structure troubleshooting, and turn repeatable support tasks into thoughtful automation. My Gemini and LangChain prototype is a hands-on step in that direction.</p><p>My approach stays grounded in people: understand the issue, verify the fix, and leave useful documentation for whoever comes next.</p><a class="text-link" href="https://www.linkedin.com/in/nescardenas" target="_blank" rel="noopener noreferrer">Get to know me on LinkedIn</a></div>
+      <div class="learning-panel reveal"><p class="eyebrow">LEARNING THAT BUILDS ON EXPERIENCE</p><div class="credential"><span class="credential-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6Z"/><path d="m8 12 3 3 5-6"/></svg></span><div><h3>Microsoft Cybersecurity Analyst</h3><p>Professional Certificate · Microsoft / Coursera</p><span>Completed September 2026</span></div></div><div class="credential"><span class="credential-icon" aria-hidden="true">G</span><div><h3>Google Cybersecurity</h3><p>Professional Certificate · Google / Coursera</p><span>Completed September 2026</span></div></div><div class="credential"><span class="credential-icon mono" aria-hidden="true">&lt;/&gt;</span><div><h3>Cisco CCNA studies</h3><p>Switching, routing & network fundamentals</p><span class="study-status">In progress</span></div></div><div class="education-note"><h3>Georgia Institute of Technology</h3><p>Computer Science coursework · 2018–2020<br>Coursework only; no degree awarded.</p></div></div>
+    </div></section>
 
-    <section id="contact" class="py-16 md:py-24 bg-black">
-        <div class="container mx-auto px-6 max-w-3xl text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">Let's Work Together</h2>
-            <p class="text-gray-400 text-lg mb-10 leading-relaxed">
-                Have a project in mind or want to connect? I'd love to hear about it and discuss how we can bring your ideas to life.
-            </p>
-            <form id="contact-form" class="space-y-6 bg-gray-900 p-8 md:p-10 rounded-xl shadow-2xl border border-gray-700/50">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="form-group text-left">
-                        <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
-                        <input type="text" id="name" name="name" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-colors">
-                    </div>
-                    <div class="form-group text-left">
-                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
-                        <input type="email" id="email" name="email" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-colors">
-                    </div>
-                </div>
-                <div class="form-group text-left">
-                    <label for="subject" class="block text-sm font-medium text-gray-300 mb-1">Subject</label>
-                    <input type="text" id="subject" name="subject" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-colors">
-                </div>
-                <div class="form-group text-left">
-                    <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
-                    <textarea id="message" name="message" rows="5" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition-colors resize-none"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-black font-semibold py-3 px-6 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
-                    Send Message
-                </button>
-                <div id="form-message" class="mt-4 text-sm"></div> </form>
-        </div>
-    </section>
+    <section id="contact" class="section container contact-section reveal"><p class="eyebrow">LET’S BUILD SOMETHING THAT WORKS</p><h2>Your next technical challenge.<br><span class="accent">My kind of conversation.</span></h2><p>I’d love to connect about systems administration, infrastructure support, and opportunities to bring AI into everyday IT operations.</p><div class="contact-actions"><a class="button primary" href="mailto:nesdancard@gmail.com">Start a conversation</a><a class="button secondary" href="https://www.linkedin.com/in/nescardenas" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></div><div class="email-line"><a href="mailto:nesdancard@gmail.com">nesdancard@gmail.com</a><button id="copy-email" class="text-button" type="button" aria-label="Copy email address">Copy email <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 4V3H3v9h1"/></svg></button></div><p id="copy-status" class="copy-status" role="status" aria-live="polite"></p></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><div><a class="brand-mark" href="#home" aria-label="Back to top">ec<span>.</span></a><p>Ernesto Cardenas <span>© <span id="year">2026</span></span></p></div><div class="footer-links"><a href="https://github.com/justernesto" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/nescardenas" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="resume.html" target="_blank" rel="noopener">Résumé</a><a href="#home">Back to top</a></div></div></footer>
 
-    <footer class="py-10 md:py-16 bg-gray-900 border-t border-gray-700/50">
-        <div class="container mx-auto px-6 text-center text-gray-400">
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="https://github.com/justernesto" target="_blank" class="text-gray-400 hover:text-green-400 transition-colors duration-300 text-2xl">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300 text-2xl">
-                    <i class="fab fa-linkedin"></i> </a>
-                <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300 text-2xl">
-                    <i class="fab fa-twitter"></i> </a>
-                 <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300 text-2xl">
-                    <i class="fab fa-dev"></i> </a>
-            </div>
-            <p class="text-sm">
-                &copy; <span id="currentYear"></span> Ernesto Cardenas. All rights reserved.
-            </p>
-            <p class="text-xs mt-2">
-                Designed with <i class="fas fa-heart text-red-500"></i> using Tailwind CSS.
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        // JavaScript for interactions
-
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            // Toggle icon
-            const icon = mobileMenuButton.querySelector('i');
-            if (mobileMenu.classList.contains('hidden')) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            } else {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            }
-        });
-
-        // Close mobile menu when a link is clicked
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenuButton.querySelector('i').classList.remove('fa-times');
-                mobileMenuButton.querySelector('i').classList.add('fa-bars');
-            });
-        });
-        
-        // Smooth scrolling for all anchor links (redundant if html class="scroll-smooth" is used, but good fallback)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                // Ensure it's a local link and not just "#"
-                if (href.length > 1 && href.startsWith('#')) {
-                    e.preventDefault();
-                    const targetElement = document.querySelector(href);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start' 
-                        });
-                    }
-                }
-            });
-        });
-
-        // Navbar scroll effect (change background opacity or style)
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-black/95', 'shadow-lg');
-                navbar.classList.remove('bg-black/90');
-            } else {
-                navbar.classList.remove('bg-black/95', 'shadow-lg');
-                navbar.classList.add('bg-black/90');
-
-            }
-        });
-
-        // Contact Form Submission
-        const contactForm = document.getElementById('contact-form');
-        const formMessage = document.getElementById('form-message');
-
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Basic validation example (can be expanded)
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-
-            if (!name || !email || !message) {
-                formMessage.textContent = 'Please fill out all required fields.';
-                formMessage.className = 'mt-4 text-sm text-red-400';
-                return;
-            }
-            
-            // Simulate form submission
-            formMessage.textContent = 'Thank you for your message! I\'ll get back to you soon.';
-            formMessage.className = 'mt-4 text-sm text-green-400';
-            this.reset(); // Reset form fields
-
-            // Clear message after a few seconds
-            setTimeout(() => {
-                formMessage.textContent = '';
-                formMessage.className = 'mt-4 text-sm';
-            }, 5000);
-        });
-
-        // Intersection Observer for scroll animations
-        const animatedElements = document.querySelectorAll('.scroll-animate');
-        const observerOptions = {
-            root: null, // observes intersections relative to the viewport
-            threshold: 0.1, // 10% of the element is visible
-            rootMargin: '0px 0px -50px 0px' // trigger a bit earlier
-        };
-
-        const observer = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('scroll-animate-visible');
-                    // Optional: unobserve after animation to save resources
-                    // obs.unobserve(entry.target); 
-                } else {
-                    // Optional: re-hide if you want animation to repeat on scroll up/down
-                    // entry.target.classList.remove('scroll-animate-visible');
-                }
-            });
-        }, observerOptions);
-
-        animatedElements.forEach(el => {
-            observer.observe(el);
-        });
-
-        // Animations for hero text (can be done with CSS @keyframes too)
-        const styleSheet = document.createElement("style");
-        styleSheet.type = "text/css";
-        styleSheet.innerText = `
-            @keyframes slideUp {
-                from { opacity: 0; transform: translateY(50px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            .animate-slideUp { animation: slideUp 1s ease-out forwards; }
-        `;
-        document.head.appendChild(styleSheet);
-
-
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        // Add onerror handlers for placeholder images
-        document.querySelectorAll('img[src^="https://placehold.co"]').forEach(img => {
-            img.onerror = function() {
-                // Extract width, height, and text from the original src if possible
-                const originalSrc = this.src;
-                let width = 600, height = 400, text = "Image+Error";
-                try {
-                    const params = originalSrc.split('/')[3].split('x');
-                    width = parseInt(params[0]) || 600;
-                    height = parseInt(params[1]) || 400;
-                    const textMatch = originalSrc.match(/text=([^&?]+)/);
-                    if (textMatch && textMatch[1]) {
-                        text = textMatch[1];
-                    }
-                } catch (e) {
-                    // Default values are already set
-                }
-                this.src = `https://placehold.co/${width}x${height}/FF0000/FFFFFF?text=${text.replace(/\s/g, '+')}+Error`;
-                this.alt = this.alt.replace('Project Image', 'Error Loading Image');
-            };
-        });
-
-    </script>
+  <dialog id="project-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">BEHIND THE PROJECT</span><button class="icon-button dialog-close" type="button" aria-label="Close project details">×</button></div><div class="dialog-body"><p id="dialog-status" class="dialog-status"></p><h2 id="dialog-title"></h2><p id="dialog-intro" class="dialog-intro"></p><div id="dialog-tags" class="tags"></div><div id="dialog-sections"></div><div id="dialog-links" class="dialog-links"></div></div></dialog>
 </body>
 </html>

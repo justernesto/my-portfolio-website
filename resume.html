@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ernesto Cardenas — Systems Administrator, Remote Field Services. Experience in IT infrastructure, enterprise support, networking, and hands-on systems labs.">
+  <meta name="theme-color" content="#164f43">
+  <title>Résumé · Ernesto Cardenas</title>
+  <style>
+    :root { color-scheme: light; --ink:#182b2a; --muted:#536664; --accent:#145c4b; --line:#d9e6e1; --mint:#e7f5ee; }
+    * { box-sizing:border-box; }
+    html { font-size:16px; }
+    body { margin:0; color:var(--ink); background:#edf3f0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.55; }
+    a { color:var(--accent); text-underline-offset:.2em; overflow-wrap:anywhere; }
+    a:hover { text-decoration-thickness:2px; }
+    a:focus-visible,button:focus-visible { outline:3px solid #16846b; outline-offset:4px; }
+    .skip-link { position:fixed; top:.75rem; left:.75rem; padding:.6rem 1rem; background:white; transform:translateY(-200%); z-index:10; }
+    .skip-link:focus { transform:translateY(0); }
+    .toolbar { max-width:1020px; margin:1.5rem auto; padding:0 1.5rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    .toolbar a { font-weight:650; }
+    button { border:1px solid var(--accent); border-radius:7px; padding:.7rem 1rem; color:white; background:var(--accent); font:inherit; font-weight:650; cursor:pointer; }
+    button:hover { background:#0d4538; }
+    .sheet { max-width:972px; margin:0 auto 3rem; padding:3rem 3.5rem; border:1px solid var(--line); border-top:7px solid var(--accent); border-radius:3px; background:#fff; box-shadow:0 14px 45px #163c2e0c; }
+    header { margin-bottom:1.7rem; }
+    .eyebrow { margin:0 0 .45rem; color:var(--accent); font-size:.82rem; font-weight:750; letter-spacing:.13em; text-transform:uppercase; }
+    h1 { margin:0; font-size:2.75rem; line-height:1.1; letter-spacing:-.055em; font-weight:750; }
+    .role { margin:.7rem 0 1rem; color:var(--accent); font-size:1.08rem; font-weight:650; }
+    .contact { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; margin:0; padding:0; list-style:none; color:var(--muted); font-size:.9rem; }
+    section { margin-top:1.7rem; }
+    h2 { margin:0 0 .85rem; padding-bottom:.4rem; border-bottom:1px solid var(--line); color:var(--accent); font-size:.83rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    h3 { margin:0; font-size:1rem; line-height:1.35; font-weight:750; }
+    p { margin:.45rem 0 0; }
+    .summary { color:#354b47; }
+    .job { margin-bottom:1.25rem; }
+    .job:last-child { margin-bottom:0; }
+    .job-top { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
+    .dates { flex-shrink:0; color:var(--muted); font-size:.85rem; white-space:nowrap; }
+    .employer { margin:.2rem 0 .45rem; color:var(--accent); font-size:.94rem; font-weight:600; }
+    ul.details { margin:.35rem 0 0; padding-left:1.15rem; }
+    .details li { margin:.25rem 0; padding-left:.12rem; }
+    .details li::marker { color:var(--accent); }
+    .skills { display:grid; grid-template-columns:1fr 1fr; gap:.8rem 1.6rem; margin:0; }
+    .skills div { min-width:0; }
+    dt { margin:0 0 .15rem; font-weight:750; font-size:.92rem; }
+    dd { margin:0; color:var(--muted); font-size:.92rem; }
+    .project { margin-bottom:.95rem; }
+    .project p { color:var(--muted); font-size:.92rem; }
+    .project:last-child { margin-bottom:0; }
+    .project-status { color:var(--accent); font-size:.86rem; font-weight:600; }
+    .credential-list { margin:0; padding:0; list-style:none; }
+    .credential-list li { margin:.5rem 0; }
+    .credential-list span { color:var(--muted); }
+    .learning { display:inline-block; padding:.1rem .45rem; margin-left:.25rem; border-radius:4px; background:var(--mint); color:var(--accent) !important; font-size:.83rem; }
+    footer { margin-top:1.6rem; padding-top:.8rem; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem; }
+    @media (max-width:700px) {
+      .toolbar { margin:1rem auto; padding:0 1rem; }
+      .sheet { margin:0 .7rem 1rem; padding:2rem 1.25rem; }
+      h1 { font-size:2.2rem; }
+      .job-top { display:block; }
+      .dates { display:block; margin-top:.2rem; }
+      .skills { grid-template-columns:1fr; }
+      .contact { display:block; }
+      .contact li { margin-top:.2rem; }
+    }
+    @media print {
+      @page { size:letter; margin:.5in; }
+      html { font-size:10pt; }
+      body { background:white; line-height:1.35; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .toolbar,.skip-link { display:none; }
+      .sheet { max-width:none; margin:0; padding:0; border:0; border-radius:0; box-shadow:none; }
+      header { margin-bottom:.9rem; padding-top:.5rem; border-top:4px solid var(--accent); }
+      h1 { font-size:26pt; }
+      .role { margin:.4rem 0 .5rem; }
+      section { margin-top:1rem; }
+      h2 { margin-bottom:.5rem; padding-bottom:.25rem; break-after:avoid; }
+      .job { margin-bottom:.7rem; break-inside:avoid; }
+      .job-top { display:flex; }
+      .dates { display:inline; margin:0; }
+      .skills { display:grid; grid-template-columns:1fr 1fr; gap:.5rem 1.3rem; }
+      .project { margin-bottom:.6rem; break-inside:avoid; }
+      .credential-list li { margin:.35rem 0; break-inside:avoid; }
+      .contact { display:flex; }
+      footer { margin-top:.9rem; padding-top:.5rem; }
+      a { color:inherit; text-decoration:none; }
+      p,li { orphans:2; widows:2; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#resume">Skip to résumé</a>
+  <div class="toolbar" aria-label="Résumé actions">
+    <a href="index.html">Back to portfolio</a>
+    <button type="button" id="print-resume">Print / save as PDF</button>
+  </div>
+  <main class="sheet" id="resume">
+    <header>
+      <p class="eyebrow">IT infrastructure · Systems · Network support</p>
+      <h1>Ernesto Cardenas</h1>
+      <p class="role">Systems Administrator · Remote Field Services</p>
+      <ul class="contact" aria-label="Contact information">
+        <li>San Bernardino, CA</li>
+        <li><a href="mailto:nesdancard@gmail.com">nesdancard@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/nescardenas" target="_blank" rel="noopener noreferrer">linkedin.com/in/nescardenas</a></li>
+        <li><a href="https://github.com/justernesto" target="_blank" rel="noopener noreferrer">github.com/justernesto</a></li>
+      </ul>
+    </header>
+
+    <section aria-labelledby="summary-title">
+      <h2 id="summary-title">Professional profile</h2>
+      <p class="summary">Systems administrator and IT infrastructure professional with experience across remote field services, enterprise help desk, and multi-site network support. Supported 2,500+ Windows and macOS users at MGA Entertainment. Combines practical troubleshooting, clear documentation, and hands-on systems labs with a strong passion for integrating AI into IT operations. Exploring AI-assisted support, knowledge retrieval, and repeatable workflows through a Gemini/LangChain agent prototype.</p>
+    </section>
+
+    <section aria-labelledby="experience-title">
+      <h2 id="experience-title">Professional experience</h2>
+      <article class="job">
+        <div class="job-top"><h3>Systems Administrator, Remote Field Services</h3><span class="dates">October 2026 – Present</span></div>
+        <p class="employer">Carvana · Mira Loma, CA</p>
+        <ul class="details">
+          <li>Provide remote and onsite IT support across the West region, including Southern California, resolving hardware and network connectivity tickets.</li>
+          <li>Diagnose switch port status, VLAN assignments, default gateway reachability, and routing issues; coordinate fixes with the network team.</li>
+          <li>Stage IT equipment for new site installations and travel to locations requiring hands-on support.</li>
+        </ul>
+      </article>
+      <article class="job">
+        <div class="job-top"><h3>IT Field Technician · Infrastructure &amp; Network Support</h3><span class="dates">May 2025 – September 2026</span></div>
+        <p class="employer">Quick Quack Car Wash</p>
+        <ul class="details">
+          <li>Restored endpoint, POS, and network service across multiple sites by isolating device, switch, VLAN, WAN, and wireless faults.</li>
+          <li>Installed and maintained UniFi switches, gateways, PoE access points, IP cameras, cabling, and network hardware.</li>
+          <li>Used NinjaOne to support Qtroller software hosting Docker containers for the license plate recognition server; authored Confluence support documentation and coordinated with remote teams.</li>
+        </ul>
+      </article>
+      <article class="job">
+        <div class="job-top"><h3>Network Support Engineer · Enterprise Help Desk</h3><span class="dates">December 2023 – April 2025</span></div>
+        <p class="employer">MGA Entertainment</p>
+        <ul class="details">
+          <li>Delivered Tier 1/2 support to 2,500+ Windows and macOS users, resolving workstation, application, identity, and network access issues.</li>
+          <li>Supported Microsoft 365 accounts and troubleshot Active Directory, MFA, VPN, DNS, and DHCP issues; documented investigations and escalations in Freshservice.</li>
+        </ul>
+      </article>
+      <article class="job">
+        <div class="job-top"><h3>Warehouse IT Support</h3><span class="dates">June 2023 – December 2023</span></div>
+        <p class="employer">Partners Personnel</p>
+        <ul class="details">
+          <li>Supported 100+ users, workstations, Zebra printers, RF scanners, and network access; coordinated equipment deployments, updates, and escalations with corporate IT.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section aria-labelledby="skills-title">
+      <h2 id="skills-title">Technical skills</h2>
+      <dl class="skills">
+        <div><dt>Networks &amp; infrastructure</dt><dd>TCP/IP, DNS, DHCP, VLANs, VPN, LAN/WAN, wireless, UniFi, switch port diagnostics, gateway and routing troubleshooting.</dd></div>
+        <div><dt>Systems &amp; identity</dt><dd>Windows, macOS, Active Directory, MFA, Microsoft 365 account support, endpoint troubleshooting and equipment deployment.</dd></div>
+        <div><dt>Support &amp; documentation</dt><dd>NinjaOne, Freshservice, Confluence, incident triage, escalation, remote and onsite support, knowledge base authoring.</dd></div>
+        <div><dt>Hands-on lab tools</dt><dd>Windows Server 2022, Windows 11, VMware, Group Policy, NTFS permissions, PowerShell, Sysmon, Event Viewer, Python, FastAPI, Docker.</dd></div>
+      </dl>
+    </section>
+
+    <section aria-labelledby="projects-title">
+      <h2 id="projects-title">Selected independent labs &amp; projects</h2>
+      <article class="project">
+        <h3>Windows Server, Active Directory &amp; Security Monitoring</h3>
+        <p>Built a VMware lab with a Windows Server 2022 domain and Windows 11 clients, DNS/DHCP, users/groups, Group Policy, and NTFS permissions. Practiced DNS and APIPA/DHCP troubleshooting, then deployed Sysmon and reviewed Event ID 1 process-creation telemetry and PowerShell activity in Event Viewer.</p>
+      </article>
+      <article class="project">
+        <h3>Hubspace BLE Lab Toolkit <span class="project-status">· Source implementation</span></h3>
+        <p>Built a toolkit for exploring Bluetooth Low Energy device discovery and interaction. Source is implemented; captured device results and hardware validation are not claimed.</p>
+      </article>
+      <article class="project">
+        <h3>Gemini / LangChain Agent Prototype <span class="project-status">· Independent prototype</span></h3>
+        <p>Explored API-driven AI agent workflows with Python, Gemini, LangChain, FastAPI, and Docker. <a href="https://github.com/justernesto/ai-agents" target="_blank" rel="noopener noreferrer">View source on GitHub</a>.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="education-title">
+      <h2 id="education-title">Credentials &amp; education</h2>
+      <ul class="credential-list">
+        <li><strong>Microsoft Cybersecurity Analyst Professional Certificate</strong><br><span>Microsoft / Coursera · September 2026</span></li>
+        <li><strong>Google Cybersecurity Professional Certificate</strong><br><span>Google / Coursera · September 2026</span></li>
+        <li><strong>Cisco CCNA</strong> <span class="learning">Studies in progress · Not yet certified</span></li>
+        <li><strong>Computer Science coursework · Georgia Institute of Technology</strong><br><span>2018–2020 · No degree awarded</span></li>
+      </ul>
+    </section>
+    <footer>Portfolio and lab details: <a href="index.html">Ernesto Cardenas · Portfolio</a></footer>
+  </main>
+  <script>
+    document.getElementById('print-resume').addEventListener('click', function () { window.print(); });
+  </script>
+</body>
+</html>
