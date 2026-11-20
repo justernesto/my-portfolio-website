@@ -106,17 +106,19 @@
       ], links: []
     },
     ai: {
-      title: 'Ops Copilot', status: 'Live browser demo · Independent project',
-      intro: 'I built Ops Copilot for the first few minutes of a support ticket, when the technician needs to narrow down the symptom, pick the next check, and record what the next team needs to know.',
-      tags: ['Next.js', 'TypeScript', 'Python', 'FastAPI', 'Docker', 'Gemini'],
+      title: 'Ops Copilot', status: 'Live demo · 67 runbooks across 11 IT support topics',
+      intro: 'I built Ops Copilot for the first few minutes of a support ticket. It helps technicians narrow the symptom, choose the next check, verify recovery, and record what the next team needs to know.',
+      tags: ['Next.js', 'TypeScript', 'Python', 'FastAPI', 'Docker Compose', 'Gemini'],
       sections: [
-        ['What you can try', ['Pick a fictional Wi-Fi, DNS, MFA, or ticket handoff scenario, or type your own support symptom.', 'Read the suggested checks and handoff guidance, then open the cited runbook to see the source.', 'Ask a short follow-up or start a new conversation to try another incident. The public demo runs in the browser without an account or API key.']],
-        ['How it works', 'The Next.js interface and FastAPI service share one runbook catalog. An optional Gemini backend can prioritize the checks from a matched runbook in one request. The API validates the returned order and uses the default runbook order if Gemini is unavailable.'],
-        ['What I verified', 'I tested the public Vercel demo, mobile layout, and a live Gemini response on a local backend. Ten offline tests cover input limits, conversation isolation, and provider fallback.'],
-        ['Where a technician fits', 'The assistant suggests checks and helps organize a handoff. The technician reviews the guidance and decides what to do in their own environment.']
+        ['The runbook library', ['The catalog has 67 runbooks and 335 checks across 11 topics. Search by symptom or filter by topic. Coverage includes VPN and DNS, identity and access, endpoints and mobile devices, remote desktops, email and collaboration, file recovery, security reports, and incident response.', 'Each guide helps establish who is affected, distinguish likely causes, verify recovery, and record evidence or an escalation handoff.']],
+        ['What you can try', ['Start with a Wi-Fi, DNS, MFA, or handoff example, or enter a fictional symptom such as “My print job is stuck in the queue.”', 'Read the suggested checks and open the cited runbook to review the original guidance. Ask a short follow-up or start a new conversation to try another issue.']],
+        ['How it matches a ticket', 'The Next.js browser demo, FastAPI service, and Python CLI share one catalog. Matching gives specific symptom phrases priority over broader terms. An explicit handoff request opens the shift handoff guide.'],
+        ['Where Gemini fits', 'The public app starts in browser mode with no account or API key. Connect to the hosted API to try Gemini prioritization. Gemini orders the checks in the selected guide, and the API validates that order. The app falls back to the default runbook order when the shared request limit is reached or Gemini is unavailable.'],
+        ['Deployment and verification', 'The demo is hosted on Vercel. Docker Compose also supports running the frontend and API on your own computer. Offline tests cover issue matching, context isolation, input validation, provider fallback, and shared quota handling. I verified catalog search and runbook citations in the public demo.']
       ], links: [
         { label: 'Try the live demo', href: 'https://ai-agents-omega-nine.vercel.app/' },
-        { label: 'View source on GitHub', href: 'https://github.com/justernesto/ai-agents', secondary: true }
+        { label: 'View source on GitHub', href: 'https://github.com/justernesto/ai-agents', secondary: true },
+        { label: 'See the runbook expansion', href: 'https://github.com/justernesto/ai-agents/pull/4', secondary: true }
       ]
     },
     ccna: {
@@ -201,7 +203,7 @@
     networks: { context: 'PRODUCTION EXPERIENCE + CONTINUED STUDY', title: 'Follow the connection.\nFind the cause.', description: 'From a physical switch port to a default gateway, I work through connectivity problems methodically and coordinate fixes with the right team.', tags: ['TCP/IP', 'VLANs', 'DNS / DHCP', 'VPN', 'UniFi', 'LAN / WAN'], evidence: 'Explore the network lab', href: '#network-lab' },
     systems: { context: 'ENTERPRISE SUPPORT + HOME LAB', title: 'Help people get access.\nKeep the environment usable.', description: 'Windows and macOS support, Microsoft 365 accounts, identity troubleshooting, and hands-on domain administration practice in a VMware lab.', tags: ['Active Directory', 'MFA', 'Microsoft 365', 'Windows / macOS', 'Group Policy', 'VMware'], evidence: 'Explore the Windows lab', project: 'windows' },
     security: { context: 'CYBERSECURITY CERTIFICATES + LAB PRACTICE', title: 'Look for context.\nDocument what the evidence says.', description: 'I combine disciplined support triage with security coursework and home-lab process telemetry, using logs to understand what happened on a host.', tags: ['Sysmon Event ID 1', 'Event Viewer', 'PowerShell', 'NTFS permissions', 'Triage & escalation'], evidence: 'Explore security monitoring practice', project: 'windows' },
-    ai: { context: 'LIVE PROJECT', title: 'Make AI useful\nin everyday IT operations.', description: 'I built Ops Copilot to help technicians choose the next check and record a useful handoff. The public demo cites its runbook, and optional Gemini prioritization uses those same steps.', tags: ['Next.js', 'Python', 'FastAPI', 'Gemini', 'Docker', 'Runbook triage'], evidence: 'Explore the Ops Copilot case study', project: 'ai' }
+    ai: { context: 'LIVE PROJECT', title: 'Make AI useful\nin everyday IT operations.', description: 'Ops Copilot matches support symptoms to a searchable library of 67 runbooks. Gemini can prioritize the suggested checks, and every matched reply cites the guide so technicians can review the steps and prepare a handoff.', tags: ['Next.js', 'Python', 'FastAPI', 'Gemini', 'Docker Compose', 'Runbook search'], evidence: 'Explore the Ops Copilot case study', project: 'ai' }
   };
   let activeToolkit = 'networks';
   const toolkitTabs = $$('[data-toolkit]');

@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#080d12">
   <meta name="description" content="Ernesto Cardenas — Systems Administrator at Carvana. IT infrastructure, network troubleshooting, hands-on security labs, and a passion for AI integration with IT operations.">
   <meta property="og:title" content="Ernesto Cardenas | IT Infrastructure & AI Integration">
-  <meta property="og:description" content="Explore Ops Copilot, a live IT support demo, and an interactive multi-site network lab built by Ernesto Cardenas.">
+  <meta property="og:description" content="Explore Ops Copilot and its 67 IT support runbooks, plus an interactive multi-site network lab built by Ernesto Cardenas.">
   <meta property="og:type" content="website">
   <title>Ernesto Cardenas | Systems, Networks & AI</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="showcase.css">
   <link rel="stylesheet" href="network.css?v=2">
-  <script src="portfolio.js?v=2" defer></script>
+  <script src="portfolio.js?v=3" defer></script>
   <script src="network-model.js" defer></script>
   <script src="network.js?v=2" defer></script>
 </head>
@@ -75,21 +75,21 @@
       </div>
       <p id="project-count" class="sr-only" role="status" aria-live="polite">Showing 5 projects</p>
       <div class="project-grid">
-        <article class="project-card featured-project reveal" data-project="ai" data-category="ai" data-search="Ops Copilot AI Agents next.js react typescript python gemini fastapi docker vercel runbook DNS Wi-Fi MFA ticket handoff infrastructure triage automation">
+        <article id="ops-copilot" class="project-card featured-project reveal" data-project="ai" data-category="ai" data-search="Ops Copilot AI Agents Next.js React TypeScript Python Gemini FastAPI Docker Compose Vercel runbook symptom search topic filter VPN DNS Wi-Fi DHCP MFA SSO identity endpoint mobile remote desktop printing backup recovery email incident security help desk service desk triage ticket handoff automation">
           <figure class="ops-screenshot">
-            <img src="assets/ops-copilot.jpg" alt="Ops Copilot workspace showing four incident scenarios, reference runbooks, and browser demo mode." width="853" height="587" loading="lazy" decoding="async">
+            <img src="assets/ops-copilot-runbooks.jpg" alt="Ops Copilot workspace with four starter scenarios and a 67-runbook library with search and topic filters." width="1280" height="840" loading="lazy" decoding="async">
           </figure>
           <div class="project-content">
-            <div class="project-meta"><span>Featured project</span><span class="project-date">Live browser demo</span></div>
+            <div class="project-meta"><span>Featured project · Live demo</span><span class="project-date">67 runbooks · 11 topics</span></div>
             <h3>Ops Copilot</h3>
-            <p>An IT support assistant I built to turn an incident description into a short list of troubleshooting checks, a source runbook, and a handoff checklist. Try Wi-Fi, DNS, MFA, or a shift handoff.</p>
-            <div class="tags"><span>Next.js</span><span>FastAPI</span><span>Python</span><span>Docker</span><span>Optional Gemini</span></div>
+            <p>Describe an IT issue or search the runbook library by symptom. Ops Copilot surfaces the relevant guide, walks you through troubleshooting and verification, and shows what to document for the next technician.</p>
+            <div class="tags"><span>Next.js</span><span>FastAPI</span><span>Gemini</span><span>Docker Compose</span></div>
             <div class="showcase-actions">
               <a class="button primary" href="https://ai-agents-omega-nine.vercel.app/" target="_blank" rel="noopener noreferrer">Try Ops Copilot</a>
               <button class="text-button detail-button" type="button" data-open="ai" aria-haspopup="dialog">Read the case study <span aria-hidden="true">+</span></button>
               <a class="text-link" href="https://github.com/justernesto/ai-agents" target="_blank" rel="noopener noreferrer">GitHub source</a>
             </div>
-            <p class="demo-note">No account or API key required for the public demo.</p>
+            <p class="demo-note">Start in your browser without an account or API key. Choose “Connect configured API” to try Gemini.</p>
           </div>
         </article>
         <article class="project-card reveal" data-project="windows" data-category="systems networking" data-search="windows server vmware active directory gpo group policy powershell sysmon event viewer dns dhcp identity security monitoring ntfs">
@@ -204,7 +204,7 @@
         <noscript><p class="nt-static">This simulation needs JavaScript. The four sites share redundant WAN paths, with local switching and centralized services in the data center.</p></noscript>
       </div>
       <div class="lab-next">
-        <p><strong>Turn the outage into a handoff.</strong> After tracing a route, try the DNS or shift handoff scenario in Ops Copilot.</p>
+        <p><strong>Turn the outage into a handoff.</strong> Search Ops Copilot’s runbooks for a DNS failure, a VPN issue, or a widespread outage, then see what you’d record for the next technician.</p>
         <a class="button secondary" href="https://ai-agents-omega-nine.vercel.app/" target="_blank" rel="noopener noreferrer">Open Ops Copilot</a>
       </div>
     </section>
@@ -225,7 +225,7 @@
     </section>
 
     <section id="about" class="section section-tinted"><div class="container about-layout">
-      <div class="about-copy reveal"><p class="eyebrow">A LITTLE MORE HUMAN</p><h2>Always troubleshooting.<br><span class="accent">Always learning.</span></h2><p>I enjoy the moment a complicated problem starts to make sense. That curiosity has taken me from warehouse devices and enterprise support to field infrastructure, Windows security labs, and Bluetooth tooling.</p><p>I’m especially passionate about <strong>integrating AI with IT operations</strong>: helping teams find knowledge faster, structure troubleshooting, and turn repeatable support tasks into thoughtful automation. Ops Copilot is my hands-on example. It pairs support runbooks with an optional Gemini integration to prioritize troubleshooting checks.</p><p>My approach stays grounded in people: understand the issue, verify the fix, and leave useful documentation for whoever comes next.</p><a class="text-link" href="https://www.linkedin.com/in/nescardenas" target="_blank" rel="noopener noreferrer">Get to know me on LinkedIn</a></div>
+      <div class="about-copy reveal"><p class="eyebrow">A LITTLE MORE HUMAN</p><h2>Always troubleshooting.<br><span class="accent">Always learning.</span></h2><p>I enjoy the moment a complicated problem starts to make sense. That curiosity has taken me from warehouse devices and enterprise support to field infrastructure, Windows security labs, and Bluetooth tooling.</p><p>I’m especially passionate about <strong>integrating AI with IT operations</strong>. I built Ops Copilot to make troubleshooting knowledge easier to find and apply. Its searchable runbook library gives technicians a place to start, and Gemini can prioritize the checks while keeping the source visible.</p><p>My approach is to understand the issue, verify the fix, and leave useful documentation for whoever comes next.</p><a class="text-link" href="https://www.linkedin.com/in/nescardenas" target="_blank" rel="noopener noreferrer">Get to know me on LinkedIn</a></div>
       <div class="learning-panel reveal"><p class="eyebrow">LEARNING THAT BUILDS ON EXPERIENCE</p><div class="credential"><span class="credential-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6Z"/><path d="m8 12 3 3 5-6"/></svg></span><div><h3>Microsoft Cybersecurity Analyst</h3><p>Professional Certificate · Microsoft / Coursera</p><span>Completed September 2026</span></div></div><div class="credential"><span class="credential-icon" aria-hidden="true">G</span><div><h3>Google Cybersecurity</h3><p>Professional Certificate · Google / Coursera</p><span>Completed September 2026</span></div></div><div class="credential"><span class="credential-icon mono" aria-hidden="true">&lt;/&gt;</span><div><h3>Cisco CCNA studies</h3><p>Switching, routing & network fundamentals</p><span class="study-status">In progress</span></div></div><div class="education-note"><h3>Georgia Institute of Technology</h3><p>Computer Science coursework · 2018–2020<br>Coursework only; no degree awarded.</p></div></div>
     </div></section>
 
