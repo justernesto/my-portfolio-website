@@ -106,15 +106,18 @@
       ], links: []
     },
     ai: {
-      title: 'An AI foundation for better ops', status: 'Independent prototype · Public source on GitHub',
-      intro: 'My passion for integrating AI into IT operations starts with understanding the building blocks: conversational context, tool use, APIs, and deployment.',
-      tags: ['Python', 'Gemini', 'LangChain', 'FastAPI', 'Docker', 'Wikipedia tool'],
+      title: 'Ops Copilot', status: 'Live browser demo · Independent project',
+      intro: 'I built Ops Copilot for the first few minutes of a support ticket, when the technician needs to narrow down the symptom, pick the next check, and record what the next team needs to know.',
+      tags: ['Next.js', 'TypeScript', 'Python', 'FastAPI', 'Docker', 'Gemini'],
       sections: [
-        ['What is implemented', ['A Python Gemini command-line bot with local chat history and Wikipedia lookup.', 'A LangChain conversational agent with memory and a Wikipedia tool.', 'A FastAPI /chat endpoint, health endpoint, and Docker configuration for the prototype.']],
-        ['The IT operations connection', 'I’m interested in applying these patterns to faster knowledge retrieval, clearer support handoffs, and repeatable troubleshooting workflows. Those are directions I want to develop; this prototype is the foundation.'],
-        ['Next areas I want to explore', ['Ground answers in approved IT documentation and provide source references.', 'Keep human review around actions that affect accounts, endpoints, or infrastructure.', 'Evaluate answer quality against realistic support scenarios before operational use.']],
-        ['Project context', 'A learning prototype, not a production service desk integration. The public repository is the source artifact; no live AI service runs in this portfolio.']
-      ], links: [{ label: 'View source on GitHub', href: 'https://github.com/justernesto/ai-agents' }]
+        ['What you can try', ['Pick a fictional Wi-Fi, DNS, MFA, or ticket handoff scenario, or type your own support symptom.', 'Read the suggested checks and handoff guidance, then open the cited runbook to see the source.', 'Ask a short follow-up or start a new conversation to try another incident. The public demo runs in the browser without an account or API key.']],
+        ['How it works', 'The Next.js interface and FastAPI service share one runbook catalog. An optional Gemini backend can prioritize the checks from a matched runbook in one request. The API validates the returned order and uses the default runbook order if Gemini is unavailable.'],
+        ['What I verified', 'I tested the public Vercel demo, mobile layout, and a live Gemini response on a local backend. Ten offline tests cover input limits, conversation isolation, and provider fallback.'],
+        ['Where a technician fits', 'The assistant suggests checks and helps organize a handoff. The technician reviews the guidance and decides what to do in their own environment.']
+      ], links: [
+        { label: 'Try the live demo', href: 'https://ai-agents-omega-nine.vercel.app/' },
+        { label: 'View source on GitHub', href: 'https://github.com/justernesto/ai-agents', secondary: true }
+      ]
     },
     ccna: {
       title: 'Building stronger network instincts', status: 'CCNA studies · Lab roadmap in progress · November 2026',
@@ -148,7 +151,7 @@
       return section;
     }));
     $('#dialog-links').replaceChildren(...project.links.map(item => {
-      const link = document.createElement('a'); link.className = 'button primary'; link.textContent = item.label; link.href = item.href;
+      const link = document.createElement('a'); link.className = item.secondary ? 'button secondary' : 'button primary'; link.textContent = item.label; link.href = item.href;
       link.target = '_blank'; link.rel = 'noopener noreferrer'; return link;
     }));
     dialog.showModal(); dialog.scrollTop = 0; document.body.style.overflow = 'hidden';
@@ -195,10 +198,10 @@
   });
 
   const toolkitData = {
-    networks: { context: 'PRODUCTION EXPERIENCE + CONTINUED STUDY', title: 'Follow the connection.\nFind the cause.', description: 'From a physical switch port to a default gateway, I work through connectivity problems methodically and coordinate fixes with the right team.', tags: ['TCP/IP', 'VLANs', 'DNS / DHCP', 'VPN', 'UniFi', 'LAN / WAN'], evidence: 'See infrastructure experience', href: '#experience' },
+    networks: { context: 'PRODUCTION EXPERIENCE + CONTINUED STUDY', title: 'Follow the connection.\nFind the cause.', description: 'From a physical switch port to a default gateway, I work through connectivity problems methodically and coordinate fixes with the right team.', tags: ['TCP/IP', 'VLANs', 'DNS / DHCP', 'VPN', 'UniFi', 'LAN / WAN'], evidence: 'Explore the network lab', href: '#network-lab' },
     systems: { context: 'ENTERPRISE SUPPORT + HOME LAB', title: 'Help people get access.\nKeep the environment usable.', description: 'Windows and macOS support, Microsoft 365 accounts, identity troubleshooting, and hands-on domain administration practice in a VMware lab.', tags: ['Active Directory', 'MFA', 'Microsoft 365', 'Windows / macOS', 'Group Policy', 'VMware'], evidence: 'Explore the Windows lab', project: 'windows' },
     security: { context: 'CYBERSECURITY CERTIFICATES + LAB PRACTICE', title: 'Look for context.\nDocument what the evidence says.', description: 'I combine disciplined support triage with security coursework and home-lab process telemetry, using logs to understand what happened on a host.', tags: ['Sysmon Event ID 1', 'Event Viewer', 'PowerShell', 'NTFS permissions', 'Triage & escalation'], evidence: 'Explore security monitoring practice', project: 'windows' },
-    ai: { context: 'INDEPENDENT PROTOTYPE + STRONG PERSONAL INTEREST', title: 'Make AI useful\nin everyday IT operations.', description: 'I’m passionate about connecting AI with IT support: knowledge retrieval, structured troubleshooting, and repeatable workflows. My agent prototype explores the core patterns.', tags: ['Python', 'Gemini', 'LangChain', 'FastAPI', 'Docker', 'Tool use & memory'], evidence: 'Explore the AI prototype', project: 'ai' }
+    ai: { context: 'LIVE PROJECT', title: 'Make AI useful\nin everyday IT operations.', description: 'I built Ops Copilot to help technicians choose the next check and record a useful handoff. The public demo cites its runbook, and optional Gemini prioritization uses those same steps.', tags: ['Next.js', 'Python', 'FastAPI', 'Gemini', 'Docker', 'Runbook triage'], evidence: 'Explore the Ops Copilot case study', project: 'ai' }
   };
   let activeToolkit = 'networks';
   const toolkitTabs = $$('[data-toolkit]');

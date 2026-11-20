@@ -6,14 +6,16 @@
   <meta name="theme-color" content="#080d12">
   <meta name="description" content="Ernesto Cardenas — Systems Administrator at Carvana. IT infrastructure, network troubleshooting, hands-on security labs, and a passion for AI integration with IT operations.">
   <meta property="og:title" content="Ernesto Cardenas | IT Infrastructure & AI Integration">
-  <meta property="og:description" content="Explore my work in systems administration, network support, cybersecurity labs, and AI-assisted IT operations.">
+  <meta property="og:description" content="Explore Ops Copilot, a live IT support demo, and an interactive multi-site network lab built by Ernesto Cardenas.">
   <meta property="og:type" content="website">
   <title>Ernesto Cardenas | Systems, Networks & AI</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="network.css">
-  <script src="portfolio.js" defer></script>
-  <script src="network.js" defer></script>
+  <link rel="stylesheet" href="showcase.css">
+  <link rel="stylesheet" href="network.css?v=2">
+  <script src="portfolio.js?v=2" defer></script>
+  <script src="network-model.js" defer></script>
+  <script src="network.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -23,7 +25,7 @@
       <a class="brand" href="#home" aria-label="Ernesto Cardenas, home"><span class="brand-mark" aria-hidden="true">ec<span>.</span></span><span class="brand-name">Ernesto Cardenas</span></a>
       <button class="menu-toggle icon-button" type="button" aria-expanded="false" aria-controls="navigation" aria-label="Open navigation"><span></span><span></span></button>
       <nav id="navigation" aria-label="Main navigation">
-        <a href="#work">Work & labs</a><a href="#experience">Experience</a><a href="#toolkit">Toolkit</a><a href="#about">About</a>
+        <a href="#work">Work & labs</a><a href="#network-lab">Topology</a><a href="#experience">Experience</a><a href="#toolkit">Toolkit</a><a href="#about">About</a>
         <a href="#contact" class="nav-contact">Let’s connect</a>
       </nav>
       <button id="motion-toggle" class="icon-button motion-toggle" type="button" aria-pressed="false" aria-label="Pause animation" title="Pause animation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg></button>
@@ -35,66 +37,26 @@
         <p class="eyebrow"><span class="small-line" aria-hidden="true"></span> IT INFRASTRUCTURE × AI INTEGRATION</p>
         <h1>Reliable systems.<br><span class="accent">Human impact.</span></h1>
         <p class="hero-intro">I’m <strong>Ernesto Cardenas</strong>, a Systems Administrator connecting people, infrastructure, and better ways of working.</p>
-        <p class="hero-detail">From hands-on network troubleshooting to exploring AI-powered IT operations, I’m driven by one thing: making technology work better for people.</p>
+        <p class="hero-detail">I troubleshoot networks in the field and build tools to practice IT operations, from a multi-site network simulator to a live support assistant.</p>
         <div class="hero-actions"><a class="button primary" href="#work">Explore my work</a><a class="button secondary" href="resume.html" target="_blank" rel="noopener">View résumé <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2"/><path d="M8 7h4M8 10h4M8 13h3"/></svg></a></div>
         <div class="hero-meta"><span>Currently at <strong>Carvana</strong></span><span>San Bernardino, CA</span></div>
       </div>
-      <div class="hero-visual" id="network-mount"><figure class="network-demo" aria-labelledby="network-demo-title">
-  <div class="network-demo__header">
-    <span class="network-demo__eyebrow" id="network-demo-title">Interactive demo</span>
-    <span class="network-demo__tag">Illustrative topology</span>
-  </div>
-
-  <div class="network-demo__map" aria-label="Select a network device to explore its role">
-    <svg class="network-demo__links" viewBox="0 0 520 320" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="portfolio-network-link" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#a6f4c5" />
-          <stop offset="1" stop-color="#7dd6ed" />
-        </linearGradient>
-      </defs>
-      <path class="network-demo__link" data-network-route="gateway" d="M260 58 V157" />
-      <path class="network-demo__link" data-network-route="workstation" d="M260 157 V206 H73 V259" />
-      <path class="network-demo__link" data-network-route="directory" d="M260 157 V259" />
-      <path class="network-demo__link" data-network-route="wireless" d="M260 157 V206 H447 V259" />
-      <path class="network-demo__packet" pathLength="100" d="M260 58 V157" />
-      <path class="network-demo__packet network-demo__packet--second" pathLength="100" d="M260 157 V206 H73 V259" />
-      <path class="network-demo__packet network-demo__packet--third" pathLength="100" d="M260 157 V206 H447 V259" />
-      <circle class="network-demo__junction" cx="260" cy="206" r="3" />
-    </svg>
-
-    <button class="network-demo__node network-demo__node--gateway" type="button" data-network-node="gateway" aria-pressed="false" aria-controls="network-demo-detail">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z" /></svg>
-      <span>Gateway</span>
-    </button>
-    <button class="network-demo__node network-demo__node--core" type="button" data-network-node="core" aria-pressed="true" aria-controls="network-demo-detail">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2" /><path d="M6 10h2m2 0h2m2 0h2m2 0h1M6 14h2m2 0h2m2 0h2m2 0h1" /></svg>
-      <span>Core switch</span>
-    </button>
-    <button class="network-demo__node network-demo__node--workstation" type="button" data-network-node="workstation" aria-label="Workstation" aria-pressed="false" aria-controls="network-demo-detail">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M12 16v4m-5 0h10" /></svg>
-      <span>Desktop</span>
-    </button>
-    <button class="network-demo__node network-demo__node--directory" type="button" data-network-node="directory" aria-label="Directory server" aria-pressed="false" aria-controls="network-demo-detail">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M5 9h14M5 15h14M8 6h1m-1 6h1m-1 6h1" /></svg>
-      <span>Directory</span>
-    </button>
-    <button class="network-demo__node network-demo__node--wireless" type="button" data-network-node="wireless" aria-label="Wireless access point" aria-pressed="false" aria-controls="network-demo-detail">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 8a14 14 0 0 1 18 0M6 12a9 9 0 0 1 12 0M9 16a4.5 4.5 0 0 1 6 0" /><circle cx="12" cy="20" r="1" /></svg>
-      <span>Wi-Fi AP</span>
-    </button>
-  </div>
-
-  <figcaption class="network-demo__caption">
-    <p class="network-demo__detail" id="network-demo-detail" aria-live="polite" aria-atomic="true"><strong>Core switch.</strong> Connects local devices and carries traffic between them.</p>
-    <div class="network-demo__footer">
-      <button class="network-demo__trace" type="button" data-network-trace>Run a trace</button>
-      <span class="network-demo__hint">Select any device</span>
-    </div>
-    <p class="network-demo__status" data-network-status role="status" aria-live="polite" aria-atomic="true"></p>
-  </figcaption>
-</figure>
-</div>
+      <div class="hero-visual">
+        <figure class="hero-network">
+          <figcaption><p>Interactive infrastructure lab</p><h2>Explore a multi-site network</h2></figcaption>
+          <div class="hero-network-map" aria-hidden="true">
+            <div class="hero-backbone">WAN backbone</div>
+            <div class="hero-branch">HQ campus<span class="hero-device-preview"><i></i><i></i><i></i></span></div>
+            <div class="hero-branch">West branch<span class="hero-device-preview"><i></i><i></i><i></i></span></div>
+            <div class="hero-branch">East branch<span class="hero-device-preview"><i></i><i></i><i></i></span></div>
+            <div class="hero-branch">Data center<span class="hero-device-preview"><i></i><i></i><i></i></span></div>
+          </div>
+          <div class="hero-network-footer">
+            <p>Four sites · WAN failover · Service outages</p>
+            <a class="button secondary" href="#network-lab">Open topology lab</a>
+          </div>
+        </figure>
+      </div>
       <div class="hero-bottom"><span class="mono">A practical mindset. An experimental spirit.</span><a href="#work">Scroll to explore <span class="scroll-cue" aria-hidden="true"></span></a></div>
     </section>
 
@@ -106,13 +68,30 @@
     </div></section>
 
     <section id="work" class="section container">
-      <div class="section-heading reveal"><div><p class="eyebrow">BUILD. BREAK. UNDERSTAND.</p><h2>Curiosity, put to work<span class="accent">.</span></h2></div><p>Hands-on labs and working prototypes.<br>Select a project to explore the thinking behind it.</p></div>
+      <div class="section-heading reveal"><div><p class="eyebrow">BUILD. BREAK. UNDERSTAND.</p><h2>Curiosity, put to work<span class="accent">.</span></h2></div><p>Try a live project, then explore the design choices and lab work behind it.</p></div>
       <div class="work-controls">
-        <div class="filters" role="group" aria-label="Filter projects"><button type="button" class="filter active" data-filter="all" aria-pressed="true">All work <span>4</span></button><button type="button" class="filter" data-filter="systems" aria-pressed="false">Systems & security</button><button type="button" class="filter" data-filter="networking" aria-pressed="false">Networking</button><button type="button" class="filter" data-filter="ai" aria-pressed="false">AI & automation</button></div>
+        <div class="filters" role="group" aria-label="Filter projects"><button type="button" class="filter active" data-filter="all" aria-pressed="true">All work <span>5</span></button><button type="button" class="filter" data-filter="systems" aria-pressed="false">Systems & security</button><button type="button" class="filter" data-filter="networking" aria-pressed="false">Networking</button><button type="button" class="filter" data-filter="ai" aria-pressed="false">AI & automation</button></div>
         <label class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><span class="sr-only">Search projects or technologies</span><input id="project-search" type="search" placeholder="Find a skill or project" autocomplete="off"><kbd aria-hidden="true">/</kbd></label>
       </div>
-      <p id="project-count" class="sr-only" role="status" aria-live="polite">Showing 4 projects</p>
+      <p id="project-count" class="sr-only" role="status" aria-live="polite">Showing 5 projects</p>
       <div class="project-grid">
+        <article class="project-card featured-project reveal" data-project="ai" data-category="ai" data-search="Ops Copilot AI Agents next.js react typescript python gemini fastapi docker vercel runbook DNS Wi-Fi MFA ticket handoff infrastructure triage automation">
+          <figure class="ops-screenshot">
+            <img src="assets/ops-copilot.jpg" alt="Ops Copilot workspace showing four incident scenarios, reference runbooks, and browser demo mode." width="853" height="587" loading="lazy" decoding="async">
+          </figure>
+          <div class="project-content">
+            <div class="project-meta"><span>Featured project</span><span class="project-date">Live browser demo</span></div>
+            <h3>Ops Copilot</h3>
+            <p>An IT support assistant I built to turn an incident description into a short list of troubleshooting checks, a source runbook, and a handoff checklist. Try Wi-Fi, DNS, MFA, or a shift handoff.</p>
+            <div class="tags"><span>Next.js</span><span>FastAPI</span><span>Python</span><span>Docker</span><span>Optional Gemini</span></div>
+            <div class="showcase-actions">
+              <a class="button primary" href="https://ai-agents-omega-nine.vercel.app/" target="_blank" rel="noopener noreferrer">Try Ops Copilot</a>
+              <button class="text-button detail-button" type="button" data-open="ai" aria-haspopup="dialog">Read the case study <span aria-hidden="true">+</span></button>
+              <a class="text-link" href="https://github.com/justernesto/ai-agents" target="_blank" rel="noopener noreferrer">GitHub source</a>
+            </div>
+            <p class="demo-note">No account or API key required for the public demo.</p>
+          </div>
+        </article>
         <article class="project-card reveal" data-project="windows" data-category="systems networking" data-search="windows server vmware active directory gpo group policy powershell sysmon event viewer dns dhcp identity security monitoring ntfs">
           <div class="project-art art-windows" aria-hidden="true"><div class="window-art"><div class="window-top"><span></span><span></span><span></span><b>identity & telemetry</b></div><div class="directory-root"><span class="mini-icon">AD</span><div>LAB.DOMAIN<small>Windows Server 2022</small></div></div><div class="directory-branches"><span>Users & groups</span><span>Group Policy</span><span>Event ID 1</span></div><div class="terminal-line"><span>PS</span> Get-WinEvent <i class="terminal-caret"></i></div></div><span class="art-corner">SYSTEMS / SECURITY</span></div>
           <div class="project-content"><div class="project-meta"><span>Hands-on home lab</span><span class="project-date">Windows + identity</span></div><h3>Inside a Windows domain</h3><p>Building the environment, managing access, and learning what endpoint activity leaves behind.</p><div class="tags"><span>Active Directory</span><span>Sysmon</span><span>PowerShell</span></div><button class="project-open text-button" type="button" data-open="windows" aria-haspopup="dialog">Explore the lab <span aria-hidden="true">+</span></button></div>
@@ -121,9 +100,21 @@
           <div class="project-art art-ble" aria-hidden="true"><div class="signal-orbit orbit-one"></div><div class="signal-orbit orbit-two"></div><div class="signal-orbit orbit-three"></div><svg class="bluetooth-glyph" viewBox="0 0 60 90" fill="none" stroke="currentColor" stroke-width="3"><path d="M29 5v80l24-22L8 25M29 5l24 22L8 65"/></svg><span class="signal-tag signal-tag-one">ADVERTISEMENT</span><span class="signal-tag signal-tag-two">GATT METADATA</span><span class="art-corner">WIRELESS / PYTHON</span></div>
           <div class="project-content"><div class="project-meta"><span>Toolkit built</span><span class="project-date">October 2026</span></div><h3>Making Bluetooth observable</h3><p>A Python toolkit for BLE discovery, GATT inventory, and offline ATT protocol analysis.</p><div class="tags"><span>Python</span><span>Bleak</span><span>tshark</span></div><button class="project-open text-button" type="button" data-open="ble" aria-haspopup="dialog">Explore the toolkit <span aria-hidden="true">+</span></button></div>
         </article>
-        <article class="project-card reveal" data-project="ai" data-category="ai" data-search="ai artificial intelligence integration it operations automation python gemini google langchain fastapi docker wikipedia chatbot conversational memory api">
-          <div class="project-art art-ai" aria-hidden="true"><div class="agent-flow"><span class="flow-node flow-user">prompt</span><span class="flow-line"></span><div class="agent-core"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M30 7c0 15-8 23-23 23 15 0 23 8 23 23 0-15 8-23 23-23-15 0-23-8-23-23Z"/></svg></div><span class="flow-line"></span><span class="flow-node">context</span></div><div class="agent-tools"><span>GEMINI</span><span>MEMORY</span><span>WIKIPEDIA</span></div><span class="art-corner">AI / OPERATIONS EXPLORATION</span></div>
-          <div class="project-content"><div class="project-meta"><span>Working prototype</span><span class="project-date">Public source</span></div><h3>An AI foundation for better ops</h3><p>Exploring conversational agents, tool use, and APIs as building blocks for AI-assisted IT workflows.</p><div class="tags"><span>Gemini</span><span>LangChain</span><span>FastAPI</span><span>Docker</span></div><button class="project-open text-button" type="button" data-open="ai" aria-haspopup="dialog">Explore the prototype <span aria-hidden="true">+</span></button></div>
+        <article class="project-card reveal" data-project="topology" data-category="networking systems" data-search="multi site enterprise topology simulator network router redundancy switching wireless access point firewall VLAN DNS identity WAN failover branch isolation data center">
+          <div class="hero-network-map network-project-art" aria-hidden="true">
+            <div class="hero-backbone">WAN backbone</div>
+            <div class="hero-branch">HQ campus<span class="hero-device-preview"><i></i><i></i><i></i></span></div>
+            <div class="hero-branch">West branch<span class="hero-device-preview"><i></i><i></i><i></i></span></div>
+            <div class="hero-branch">East branch<span class="hero-device-preview"><i></i><i></i><i></i></span></div>
+            <div class="hero-branch">Data center<span class="hero-device-preview"><i></i><i></i><i></i></span></div>
+          </div>
+          <div class="project-content">
+            <div class="project-meta"><span>Interactive simulation</span><span class="project-date">Network infrastructure</span></div>
+            <h3>Multi-site network lab</h3>
+            <p>Trace a request from a branch endpoint to a data center service. Change the outage scenario and see which paths are still available.</p>
+            <div class="tags"><span>Routing &amp; switching</span><span>WAN resiliency</span><span>VLANs</span></div>
+            <a class="project-open text-link" href="#network-lab">Open the lab</a>
+          </div>
         </article>
         <article class="project-card reveal" data-project="ccna" data-category="networking" data-search="cisco ccna packet tracer networking roadmap switching routing vlan trunks vlsm subnetting ospf ipv6 nat acl dhcp stp lacp ios">
           <div class="project-art art-network" aria-hidden="true"><svg viewBox="0 0 540 240" fill="none"><g stroke="currentColor" stroke-opacity=".35"><path d="M85 120h130m110 0h130M270 55v130M215 120l55-65 55 65-55 65-55-65Z"/><path d="M85 90v60m370-60v60M240 55h60m-60 130h60" stroke-dasharray="4 6"/></g><g fill="#0d1c26" stroke="currentColor"><rect x="45" y="100" width="80" height="40" rx="8"/><rect x="235" y="100" width="70" height="40" rx="8"/><rect x="415" y="100" width="80" height="40" rx="8"/><circle cx="270" cy="55" r="15"/><circle cx="270" cy="185" r="15"/></g><g fill="currentColor" font-family="monospace" font-size="11" text-anchor="middle"><text x="85" y="124">VLAN 10</text><text x="270" y="124">ROUTER</text><text x="455" y="124">VLAN 20</text></g></svg><span class="network-badge">LEARNING IN PROGRESS</span><span class="art-corner">SWITCHING / ROUTING</span></div>
@@ -132,6 +123,90 @@
       </div>
       <div id="no-results" class="empty-state" hidden><h3>No matching projects yet.</h3><p>Try “Python,” “networking,” or “Active Directory.”</p><button id="clear-search" class="button secondary" type="button">Show all work</button></div>
       <noscript><p class="note">Project summaries are available above. Enable JavaScript for filters, case studies, and the interactive network demo.</p></noscript>
+    </section>
+
+    <section id="network-lab" class="section container network-lab" aria-labelledby="network-lab-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">INTERACTIVE INFRASTRUCTURE LAB</p><h2 id="network-lab-title">Multi-site network topology<span class="accent">.</span></h2></div>
+        <p>Explore four fictional sites, trace a route, and see how the network responds to an outage.</p>
+      </div>
+      <div class="nt-lab" data-network-topology>
+        <div class="nt-tools">
+          <div class="nt-control">
+            <label for="nt-scenario">Network scenario</label>
+            <select id="nt-scenario" data-nt-scenario disabled></select>
+          </div>
+          <div class="nt-control">
+            <label for="nt-preset">Trace preset</label>
+            <select id="nt-preset" data-nt-preset disabled></select>
+          </div>
+          <button class="nt-run" data-nt-run type="button" disabled>Run trace</button>
+          <details class="nt-custom" data-nt-custom>
+            <summary>Choose source and destination</summary>
+            <div class="nt-custom-grid">
+              <div class="nt-control">
+                <label for="nt-source">Source device</label>
+                <select id="nt-source" data-nt-source disabled></select>
+              </div>
+              <div class="nt-control">
+                <label for="nt-destination">Destination device</label>
+                <select id="nt-destination" data-nt-destination disabled></select>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <p class="nt-incident" data-nt-incident><strong>Loading simulated network…</strong></p>
+        <div class="nt-map-head">
+          <div>
+            <h3 id="nt-map-title">Network map</h3>
+            <p>Choose a device to inspect it. Use the arrow keys to move between devices.</p>
+          </div>
+          <ul class="nt-legend" aria-label="Network map legend">
+            <li><span class="nt-legend-line nt-line-primary" aria-hidden="true"></span> Primary WAN</li>
+            <li><span class="nt-legend-line nt-line-backup" aria-hidden="true"></span> Backup link</li>
+            <li><span class="nt-legend-line nt-line-trace" aria-hidden="true"></span> Trace path</li>
+            <li><span class="nt-legend-line nt-line-down" aria-hidden="true"></span> Down</li>
+          </ul>
+          <div class="nt-jump nt-control">
+            <label for="nt-site">Jump to site</label>
+            <select id="nt-site" data-nt-site disabled></select>
+          </div>
+        </div>
+        <div class="nt-scroll" role="region" tabindex="0" aria-labelledby="nt-map-title">
+          <div class="nt-map" data-nt-map>
+            <canvas class="nt-links" aria-hidden="true" data-nt-links></canvas>
+            <div class="nt-wan" data-nt-wan></div>
+            <div class="nt-sites" data-nt-sites></div>
+          </div>
+        </div>
+
+        <div class="nt-readouts">
+          <section class="nt-result" aria-labelledby="nt-trace-title">
+            <h3 id="nt-trace-title">Trace result</h3>
+            <p data-nt-result role="status" aria-atomic="true">Run a trace to see the path between two devices.</p>
+            <ol class="nt-hops" data-nt-hops hidden aria-label="Ordered trace hops"></ol>
+          </section>
+          <section class="nt-inspector" id="nt-device-inspector" aria-labelledby="nt-device-title">
+            <div class="nt-inspector-head">
+              <h3 id="nt-device-title" data-nt-device-title tabindex="-1">Device inspector</h3>
+              <span class="nt-device-state" data-nt-device-state></span>
+            </div>
+            <p class="nt-device-context" data-nt-device-context></p>
+            <p data-nt-device-detail>Select a device on the map for its role, status, and links.</p>
+            <p class="nt-sr-only" data-nt-device-announcement role="status"></p>
+            <div data-nt-neighbor-list hidden>
+              <p class="nt-neighbor-heading">Direct connections</p>
+              <ul class="nt-neighbors" data-nt-neighbors></ul>
+            </div>
+          </section>
+        </div>
+        <noscript><p class="nt-static">This simulation needs JavaScript. The four sites share redundant WAN paths, with local switching and centralized services in the data center.</p></noscript>
+      </div>
+      <div class="lab-next">
+        <p><strong>Turn the outage into a handoff.</strong> After tracing a route, try the DNS or shift handoff scenario in Ops Copilot.</p>
+        <a class="button secondary" href="https://ai-agents-omega-nine.vercel.app/" target="_blank" rel="noopener noreferrer">Open Ops Copilot</a>
+      </div>
     </section>
 
     <section id="experience" class="section section-tinted"><div class="container experience-layout">
@@ -146,11 +221,11 @@
 
     <section id="toolkit" class="section container">
       <div class="section-heading reveal"><div><p class="eyebrow">TOOLS WITH A PURPOSE</p><h2>The way I work<span class="accent">.</span></h2></div><p>Select a discipline to see the tools,<br>the context, and the supporting work.</p></div>
-      <div class="toolkit-layout reveal"><div class="toolkit-tabs" role="tablist" aria-label="Technical disciplines"><button id="tab-networks" role="tab" aria-selected="true" aria-controls="toolkit-panel" data-toolkit="networks">Networks & infrastructure <span aria-hidden="true">+</span></button><button id="tab-systems" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="systems">Systems & identity <span aria-hidden="true">+</span></button><button id="tab-security" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="security">Security & investigation <span aria-hidden="true">+</span></button><button id="tab-ai" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="ai">AI & automation <span aria-hidden="true">+</span></button></div><div id="toolkit-panel" class="toolkit-panel" role="tabpanel" aria-labelledby="tab-networks" tabindex="0"><p class="eyebrow" id="toolkit-context">PRODUCTION EXPERIENCE + CONTINUED STUDY</p><h3 id="toolkit-title">Follow the connection.<br>Find the cause.</h3><p id="toolkit-description">From a physical switch port to a default gateway, I work through connectivity problems methodically and coordinate fixes with the right team.</p><div class="tags large-tags" id="toolkit-tags"><span>TCP/IP</span><span>VLANs</span><span>DNS / DHCP</span><span>VPN</span><span>UniFi</span><span>LAN / WAN</span></div><a id="toolkit-evidence" class="text-link" href="#experience">See infrastructure experience</a></div></div>
+      <div class="toolkit-layout reveal"><div class="toolkit-tabs" role="tablist" aria-label="Technical disciplines"><button id="tab-networks" role="tab" aria-selected="true" aria-controls="toolkit-panel" data-toolkit="networks">Networks & infrastructure <span aria-hidden="true">+</span></button><button id="tab-systems" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="systems">Systems & identity <span aria-hidden="true">+</span></button><button id="tab-security" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="security">Security & investigation <span aria-hidden="true">+</span></button><button id="tab-ai" role="tab" tabindex="-1" aria-selected="false" aria-controls="toolkit-panel" data-toolkit="ai">AI & automation <span aria-hidden="true">+</span></button></div><div id="toolkit-panel" class="toolkit-panel" role="tabpanel" aria-labelledby="tab-networks" tabindex="0"><p class="eyebrow" id="toolkit-context">PRODUCTION EXPERIENCE + CONTINUED STUDY</p><h3 id="toolkit-title">Follow the connection.<br>Find the cause.</h3><p id="toolkit-description">From a physical switch port to a default gateway, I work through connectivity problems methodically and coordinate fixes with the right team.</p><div class="tags large-tags" id="toolkit-tags"><span>TCP/IP</span><span>VLANs</span><span>DNS / DHCP</span><span>VPN</span><span>UniFi</span><span>LAN / WAN</span></div><a id="toolkit-evidence" class="text-link" href="#network-lab">Explore the network lab</a></div></div>
     </section>
 
     <section id="about" class="section section-tinted"><div class="container about-layout">
-      <div class="about-copy reveal"><p class="eyebrow">A LITTLE MORE HUMAN</p><h2>Always troubleshooting.<br><span class="accent">Always learning.</span></h2><p>I enjoy the moment a complicated problem starts to make sense. That curiosity has taken me from warehouse devices and enterprise support to field infrastructure, Windows security labs, and Bluetooth tooling.</p><p>I’m especially passionate about <strong>integrating AI with IT operations</strong>: helping teams find knowledge faster, structure troubleshooting, and turn repeatable support tasks into thoughtful automation. My Gemini and LangChain prototype is a hands-on step in that direction.</p><p>My approach stays grounded in people: understand the issue, verify the fix, and leave useful documentation for whoever comes next.</p><a class="text-link" href="https://www.linkedin.com/in/nescardenas" target="_blank" rel="noopener noreferrer">Get to know me on LinkedIn</a></div>
+      <div class="about-copy reveal"><p class="eyebrow">A LITTLE MORE HUMAN</p><h2>Always troubleshooting.<br><span class="accent">Always learning.</span></h2><p>I enjoy the moment a complicated problem starts to make sense. That curiosity has taken me from warehouse devices and enterprise support to field infrastructure, Windows security labs, and Bluetooth tooling.</p><p>I’m especially passionate about <strong>integrating AI with IT operations</strong>: helping teams find knowledge faster, structure troubleshooting, and turn repeatable support tasks into thoughtful automation. Ops Copilot is my hands-on example. It pairs support runbooks with an optional Gemini integration to prioritize troubleshooting checks.</p><p>My approach stays grounded in people: understand the issue, verify the fix, and leave useful documentation for whoever comes next.</p><a class="text-link" href="https://www.linkedin.com/in/nescardenas" target="_blank" rel="noopener noreferrer">Get to know me on LinkedIn</a></div>
       <div class="learning-panel reveal"><p class="eyebrow">LEARNING THAT BUILDS ON EXPERIENCE</p><div class="credential"><span class="credential-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6Z"/><path d="m8 12 3 3 5-6"/></svg></span><div><h3>Microsoft Cybersecurity Analyst</h3><p>Professional Certificate · Microsoft / Coursera</p><span>Completed September 2026</span></div></div><div class="credential"><span class="credential-icon" aria-hidden="true">G</span><div><h3>Google Cybersecurity</h3><p>Professional Certificate · Google / Coursera</p><span>Completed September 2026</span></div></div><div class="credential"><span class="credential-icon mono" aria-hidden="true">&lt;/&gt;</span><div><h3>Cisco CCNA studies</h3><p>Switching, routing & network fundamentals</p><span class="study-status">In progress</span></div></div><div class="education-note"><h3>Georgia Institute of Technology</h3><p>Computer Science coursework · 2018–2020<br>Coursework only; no degree awarded.</p></div></div>
     </div></section>
 
