@@ -6,6 +6,7 @@
   --nt-muted: #a6b6c2;
   --nt-mint: #a6f4c5;
   --nt-cyan: #7dd6ed;
+  --nt-trace: #58e8fd;
   --nt-backup: #adaddc;
   --nt-down: #ffc1a2;
   min-width: 0;
@@ -111,6 +112,7 @@
 }
 
 .nt-map-head p { margin-top: 4px; color: var(--nt-muted); font-size: .8rem; }
+.nt-map-head p.has-trace { color: var(--nt-trace); font-weight: 650; }
 .nt-legend {
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +131,11 @@
 }
 
 .nt-line-backup { border-color: var(--nt-backup); border-top-style: dashed; }
-.nt-line-trace { border-color: var(--nt-mint); border-top-width: 3px; }
+.nt-line-trace {
+  border-color: var(--nt-trace);
+  border-top-width: 3px;
+  box-shadow: 0 0 6px #58e8fd80;
+}
 .nt-line-down { border-color: var(--nt-down); border-top-style: dotted; }
 .nt-jump { display: none; }
 .nt-scroll {
@@ -204,7 +210,7 @@
   min-height: 44px;
   padding: 9px 10px;
   border-bottom: 1px solid #283b49;
-  background: #101d26;
+  background: #101d2666;
 }
 
 .nt-site-head h4 {
@@ -320,12 +326,26 @@
 }
 
 .nt-node.is-traced {
-  border-color: var(--nt-mint);
-  background: #18342d;
-  color: #d8f7e6;
+  border-color: #53aebc;
+  background: #15313b;
+  color: #e7faff;
 }
 
-.nt-node.is-current { box-shadow: 0 0 0 2px #a6f4c52c, 0 0 12px #a6f4c526; }
+.nt-node.is-next {
+  border-style: dashed;
+  border-color: var(--nt-trace);
+}
+
+.nt-node:is(.is-current, .is-arrived) {
+  border-color: #c9faff;
+  background: #194252;
+  box-shadow: 0 0 0 2px #58e8fd4d, 0 0 14px #58e8fd59;
+}
+
+.nt-node.is-current .nt-node-code, .nt-node.is-arrived .nt-node-code {
+  border-color: var(--nt-trace);
+  color: #e7fdff;
+}
 .nt-readouts {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
@@ -369,6 +389,11 @@
   font: .65rem ui-monospace, monospace;
 }
 
+.nt-hops li[aria-current="step"] {
+  border-color: var(--nt-trace);
+  background: #194252;
+}
+
 .nt-inspector-head {
   display: flex;
   align-items: baseline;
@@ -408,6 +433,8 @@
   .nt-legend { gap: 4px 11px; }
   .nt-node, .nt-wan .nt-node { min-height: 44px; }
 }
+
+[data-motion="off"] .nt-node { transition: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .nt-node { transition: none; }

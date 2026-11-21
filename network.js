@@ -17,6 +17,8 @@
     ]),
   );
   const incident = lab.querySelector('[data-nt-incident]');
+  const mapStatus = lab.querySelector('[data-nt-map-status]');
+  const mapHint = mapStatus.textContent;
   const map = lab.querySelector('[data-nt-map]');
   const scroller = map.parentElement;
   const canvas = lab.querySelector('[data-nt-links]');
@@ -61,8 +63,8 @@
   let failedLinks = new Set();
   let selectedDevice = null;
   let focusableDevice = null;
-  let highlightedPath = [];
-  let timer;
+  let activeTrace = null;
+  let layout;
   let frame;
 
   function element(tag, className, content) {
@@ -291,6 +293,7 @@
       node.setAttribute('aria-label', `${labelFor(id)}, ${role}, ${status}`);
     }
     selectDevice(selectedDevice);
+    invalidateLayout();
     resetTrace();
   }
 
@@ -298,21 +301,50 @@
     if (frame === undefined) frame = window.requestAnimationFrame(drawCanvas);
   }
 
-  function pointAt(points, fraction) {
-    const lengths = points.slice(1).map(([x, y], index) => (
-      Math.hypot(x - points[index][0], y - points[index][1])
-    ));
-    let remaining = lengths.reduce((total, length) => total + length, 0) * fraction;
-    for (let index = 0; index < lengths.length; index += 1) {
-      if (remaining <= lengths[index] && lengths[index]) {
-        const [x, y] = points[index];
-        const [nextX, nextY] = points[index + 1];
-        const ratio = remaining / lengths[index];
-        return [x + (nextX - x) * ratio, y + (nextY - y) * ratio];
+  function invalidateLayout() {
+    layout = undefined;
+    scheduleCanvas();
+  }
+
+  function measurePath(points) {
+    const distances = [0];
+    let arrow;
+    let longest = 0;
+    for (let index = 1; index < points.length; index += 1) {
+      const [x, y] = points[index - 1];
+      const [nextX, nextY] = points[index];
+      const length = Math.hypot(nextX - x, nextY - y);
+      distances.push(distances[index - 1] + length);
+      if (length > longest) {
+        longest = length;
+        arrow = [(x + nextX) / 2, (y + nextY) / 2, (nextX - x) / length, (nextY - y) / length];
       }
-      remaining -= lengths[index];
+    }
+    return { points, distances, length: distances[distances.length - 1], arrow };
+  }
+
+  function pointAt(path, distance) {
+    const { points, distances } = path;
+    for (let index = 1; index < points.length; index += 1) {
+      const length = distances[index] - distances[index - 1];
+      if (distance > distances[index] || !length) continue;
+      const [x, y] = points[index - 1];
+      const [nextX, nextY] = points[index];
+      const progress = (distance - distances[index - 1]) / length;
+      return [x + (nextX - x) * progress, y + (nextY - y) * progress];
     }
     return points[points.length - 1];
+  }
+
+  function strokePath(path, start = 0, end = path.length) {
+    if (end <= start) return;
+    context.beginPath();
+    context.moveTo(...pointAt(path, start));
+    path.distances.forEach((distance, index) => {
+      if (distance > start && distance < end) context.lineTo(...path.points[index]);
+    });
+    context.lineTo(...pointAt(path, end));
+    context.stroke();
   }
 
   function linkPoints(link, coordinates) {
@@ -321,7 +353,7 @@
     const [upper, lower] = from.y <= to.y ? [from, to] : [to, from];
     if (Math.abs(from.y - to.y) < 4) {
       const [left, right] = from.x < to.x ? [from, to] : [to, from];
-      return [[left.right, left.y], [right.left, right.y]];
+      return { start: left.id, points: [[left.right, left.y], [right.left, right.y]] };
     }
     const { x: topX, bottom } = upper;
     const { x: bottomX, top } = lower;
@@ -330,7 +362,7 @@
       const isBackup = link.kind === 'backup';
       const midway = Math.min(bottom + (isBackup ? 34 : 21), top - 5);
       const dockX = bottomX + (isBackup ? 7 : -7);
-      return [[topX, bottom], [topX, midway], [dockX, midway], [dockX, top]];
+      return { start: upper.id, points: [[topX, bottom], [topX, midway], [dockX, midway], [dockX, top]] };
     }
 
     const lowerDevice = byId.get(lower.id);
@@ -344,26 +376,18 @@
       const sideX = leftLane ? lower.left : lower.right;
       const detourX = sideX + (leftLane ? -4 : 4);
       const branchY = (bottom + obstacle.top) / 2;
-      return [[topX, bottom], [topX, branchY], [detourX, branchY], [detourX, lower.y], [sideX, lower.y]];
+      return {
+        start: upper.id,
+        points: [[topX, bottom], [topX, branchY], [detourX, branchY], [detourX, lower.y], [sideX, lower.y]],
+      };
     }
 
     const midway = (bottom + top) / 2;
-    return [[topX, bottom], [topX, midway], [bottomX, midway], [bottomX, top]];
+    return { start: upper.id, points: [[topX, bottom], [topX, midway], [bottomX, midway], [bottomX, top]] };
   }
 
-  function drawCanvas() {
-    frame = undefined;
-    if (!context) return;
+  function measureLayout() {
     const bounds = map.getBoundingClientRect();
-    const scale = Math.min(window.devicePixelRatio || 1, 2);
-    const width = Math.round(bounds.width * scale);
-    const height = Math.round(bounds.height * scale);
-    if (canvas.width !== width || canvas.height !== height) {
-      canvas.width = width;
-      canvas.height = height;
-    }
-    context.setTransform(scale, 0, 0, scale, 0, 0);
-    context.clearRect(0, 0, bounds.width, bounds.height);
     const coordinates = new Map([...buttons].map(([id, node]) => {
       const rect = node.getBoundingClientRect();
       const left = rect.left - bounds.left;
@@ -373,36 +397,28 @@
         top, bottom: top + rect.height, y: top + rect.height / 2,
       }];
     }));
-    const used = new Set();
-    for (let index = 1; index < highlightedPath.length; index += 1) {
-      const from = highlightedPath[index - 1];
-      const to = highlightedPath[index];
-      const link = links.find((item) => (
-        (item.from === from && item.to === to) || (item.from === to && item.to === from)
-      ));
-      if (link) used.add(link.id);
-    }
+    const paths = new Map(links.map((link) => {
+      const { start, points } = linkPoints(link, coordinates);
+      return [link.id, { start, path: measurePath(points), reverse: measurePath([...points].reverse()) }];
+    }));
+    return { width: bounds.width, height: bounds.height, paths };
+  }
 
-    const order = (link) => used.has(link.id) ? 2 : Number(linkDown(link));
-    context.lineJoin = 'round';
-    context.lineCap = 'round';
-    for (const link of [...links].sort((a, b) => order(a) - order(b))) {
-      const traced = used.has(link.id);
+  function drawLinks() {
+    for (const link of [...links].sort((a, b) => Number(linkDown(a)) - Number(linkDown(b)))) {
       const down = linkDown(link);
       const color = { primary: '#6ab8d1', backup: '#9392c8', backbone: '#678497',
         access: '#647d8e', service: '#609c89' }[link.kind] || '#678497';
-      const points = linkPoints(link, coordinates);
-      context.strokeStyle = traced ? '#a6f4c5' : down ? '#f4a987' : color;
-      context.lineWidth = traced ? 2.5 : down ? 1.7 : 1.15;
-      context.setLineDash(traced ? [] : down ? [1, 4] : link.kind === 'backup' ? [5, 5] : []);
-      context.beginPath();
-      context.moveTo(...points[0]);
-      for (const point of points.slice(1)) context.lineTo(...point);
-      context.stroke();
+      const { path } = layout.paths.get(link.id);
+      const { points } = path;
+      context.strokeStyle = down ? '#f4a987' : color;
+      context.lineWidth = down ? 1.7 : 1.15;
+      context.setLineDash(down ? [1, 4] : link.kind === 'backup' ? [5, 5] : []);
+      strokePath(path);
       if (down) {
         const [x, y] = wanIds.has(link.from) || wanIds.has(link.to)
           ? [points[3][0], points[2][1] + Math.min(7, (points[3][1] - points[2][1]) / 2)]
-          : pointAt(points, .65);
+          : pointAt(path, path.length * .65);
         context.setLineDash([]);
         context.beginPath();
         context.moveTo(x - 3, y - 3);
@@ -414,14 +430,137 @@
     }
   }
 
-  function paintPath(path, active = null) {
-    highlightedPath = path;
-    const activeIds = new Set(path);
-    for (const [id, button] of buttons) {
-      button.classList.toggle('is-traced', activeIds.has(id));
-      button.classList.toggle('is-current', active === id);
+  function directedPath({ link, from }) {
+    const geometry = layout.paths.get(link.id);
+    return geometry.start === from ? geometry.path : geometry.reverse;
+  }
+
+  function drawTrail(path, distance) {
+    context.strokeStyle = 'rgba(42, 223, 252, .28)';
+    context.lineWidth = 6;
+    strokePath(path, 0, distance);
+    context.strokeStyle = '#58e8fd';
+    context.lineWidth = 2.5;
+    strokePath(path, 0, distance);
+  }
+
+  function drawArrow(path) {
+    if (!path.arrow) return;
+    const [x, y, dx, dy] = path.arrow;
+    context.strokeStyle = '#c9faff';
+    context.lineWidth = 1.75;
+    context.beginPath();
+    context.moveTo(x - dx * 4 - dy * 4, y - dy * 4 + dx * 4);
+    context.lineTo(x + dx * 3, y + dy * 3);
+    context.lineTo(x - dx * 4 + dy * 4, y - dy * 4 - dx * 4);
+    context.stroke();
+  }
+
+  function drawPacket(path, distance) {
+    const [x, y] = pointAt(path, distance);
+    context.save();
+    context.shadowColor = '#23e2ff';
+    context.shadowBlur = 14;
+    context.strokeStyle = '#bcfaff';
+    context.lineWidth = 3.75;
+    strokePath(path, Math.max(0, distance - 40), distance);
+    context.fillStyle = '#e7fdff';
+    context.beginPath();
+    context.arc(x, y, 4.5, 0, Math.PI * 2);
+    context.fill();
+    context.restore();
+
+    const viewport = scroller.clientWidth;
+    if (layout.width <= viewport) return;
+    const margin = Math.min(76, viewport / 4);
+    const left = scroller.scrollLeft;
+    if (x < left + margin) scroller.scrollLeft = x - margin;
+    else if (x > left + viewport - margin) scroller.scrollLeft = x + margin - viewport;
+  }
+
+  function drawCanvas(timestamp) {
+    frame = undefined;
+    if (!context) return;
+    layout ??= measureLayout();
+    const scale = Math.min(window.devicePixelRatio || 1, 2);
+    const width = Math.round(layout.width * scale);
+    const height = Math.round(layout.height * scale);
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
     }
-    scheduleCanvas();
+    context.setTransform(scale, 0, 0, scale, 0, 0);
+    context.clearRect(0, 0, layout.width, layout.height);
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
+    drawLinks();
+    if (!activeTrace) return;
+
+    const progress = advanceTrace(timestamp);
+    const { legs, currentLeg } = activeTrace;
+    context.setLineDash([]);
+    for (const leg of legs.slice(0, currentLeg)) {
+      const path = directedPath(leg);
+      drawTrail(path, path.length);
+      drawArrow(path);
+    }
+    if (currentLeg < legs.length) {
+      const path = directedPath(legs[currentLeg]);
+      const distance = path.length * progress;
+      drawTrail(path, distance);
+      drawPacket(path, distance);
+      scheduleCanvas();
+    }
+  }
+
+  function showTraceProgress() {
+    const { route = [], legs = [], currentLeg = -1 } = activeTrace || {};
+    const visited = new Set(route.slice(0, currentLeg + 1));
+    const active = legs[currentLeg];
+    for (const [id, button] of buttons) {
+      button.classList.toggle('is-traced', visited.has(id));
+      button.classList.toggle('is-current', active?.from === id);
+      button.classList.toggle('is-next', active?.to === id);
+      button.classList.toggle('is-arrived', currentLeg === legs.length && route[currentLeg] === id);
+    }
+    [...hops.children].forEach((hop, index) => {
+      if (active && index === currentLeg) hop.setAttribute('aria-current', 'step');
+      else hop.removeAttribute('aria-current');
+    });
+    mapStatus.classList.toggle('has-trace', Boolean(activeTrace));
+    if (active) {
+      mapStatus.textContent = `Hop ${currentLeg + 1} of ${legs.length} · ${labelFor(active.from)} → ${labelFor(active.to)}`;
+    } else {
+      mapStatus.textContent = activeTrace ? `Packet arrived at ${labelFor(route[currentLeg])}.` : mapHint;
+    }
+  }
+
+  function finishTrace() {
+    activeTrace.currentLeg = activeTrace.legs.length;
+    showTraceProgress();
+    setResult(activeTrace.success, 'pass');
+    inputs.run.textContent = 'Replay trace';
+  }
+
+  function advanceTrace(timestamp) {
+    const { legs, currentLeg } = activeTrace;
+    if (currentLeg === legs.length) return 0;
+    if (fewerAnimations()) {
+      finishTrace();
+      return 0;
+    }
+    activeTrace.startedAt ??= timestamp;
+    activeTrace.duration ??= Math.min(1100, Math.max(440, directedPath(legs[currentLeg]).length * 1.35 + 260));
+    // Hold the packet at each device briefly before starting the next leg.
+    const progress = Math.max(0, (timestamp - activeTrace.startedAt - 140) / activeTrace.duration);
+    if (progress < 1) return progress;
+
+    activeTrace.currentLeg += 1;
+    activeTrace.startedAt = timestamp;
+    activeTrace.duration = undefined;
+    if (activeTrace.currentLeg === legs.length) finishTrace();
+    else showTraceProgress();
+    return 0;
   }
 
   function setResult(content, outcome = 'ready') {
@@ -430,11 +569,12 @@
   }
 
   function resetTrace() {
-    window.clearTimeout(timer);
+    activeTrace = null;
     inputs.run.textContent = 'Run trace';
     hops.replaceChildren();
     hops.hidden = true;
-    paintPath([]);
+    showTraceProgress();
+    scheduleCanvas();
     setResult('Run a trace to see the path between the selected devices.');
   }
 
@@ -462,20 +602,22 @@
     hops.replaceChildren(...route.map((id) => element('li', '', labelFor(id))));
     hops.hidden = false;
 
-    function step(count) {
-      if (count >= route.length || fewerAnimations()) {
-        paintPath(route);
-        setResult(success, 'pass');
-        inputs.run.textContent = 'Run trace';
-        return;
-      }
-      paintPath(route.slice(0, count), route[count - 1]);
-      timer = window.setTimeout(() => step(count + 1), 120);
+    const legs = route.slice(1).map((to, index) => {
+      const from = route[index];
+      const link = links.find((item) => (
+        (item.from === from && item.to === to) || (item.from === to && item.to === from)
+      ));
+      return { from, to, link };
+    });
+    activeTrace = { route, legs, success, currentLeg: 0 };
+    if (fewerAnimations() || !context) {
+      finishTrace();
+      return;
     }
 
-    inputs.run.textContent = 'Tracing…';
+    inputs.run.textContent = 'Restart trace';
     setResult(`Tracing from ${labelFor(from)} to ${labelFor(to)}.`);
-    step(1);
+    showTraceProgress();
   }
 
   renderMap();
@@ -502,7 +644,7 @@
   inputs.site.addEventListener('change', () => jumpToSite(inputs.site.value));
   inputs.run.addEventListener('click', runTrace);
   map.addEventListener('keydown', moveFocus);
-  if ('ResizeObserver' in window) new ResizeObserver(scheduleCanvas).observe(map);
-  window.addEventListener('resize', scheduleCanvas);
-  document.fonts?.ready.then(scheduleCanvas);
+  if ('ResizeObserver' in window) new ResizeObserver(invalidateLayout).observe(map);
+  window.addEventListener('resize', invalidateLayout);
+  document.fonts?.ready.then(invalidateLayout);
 })();
